@@ -26,17 +26,15 @@
       "ask",
       "escalate"
     ],
-    "reply_must_mention": [
+    "requested_info": [
       [
-        "sds",
-        "msds",
-        "safety data sheet"
+        "sds"
       ],
       [
-        "un number",
-        "un-number",
-        "un no",
-        "un3"
+        "un_number"
+      ],
+      [
+        "delivery_deadline"
       ]
     ]
   },

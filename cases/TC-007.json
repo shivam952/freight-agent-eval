@@ -16,14 +16,9 @@
     "action_one_of": [
       "ask"
     ],
-    "reply_must_mention": [
+    "requested_info": [
       [
-        "incoterm",
-        "terms",
-        "fob",
-        "exw",
-        "who handles",
-        "origin"
+        "incoterm"
       ]
     ]
   },

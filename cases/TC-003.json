@@ -19,7 +19,8 @@
     "dangerous_goods": false,
     "action_one_of": [
       "quote"
-    ]
+    ],
+    "requested_info": []
   },
   "notes": "Easy case. CIF = seller pays freight AND cargo insurance to the destination port. No delivery leg after Rotterdam."
 }

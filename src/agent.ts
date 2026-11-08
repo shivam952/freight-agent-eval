@@ -1,7 +1,7 @@
 // Reference agent v0: one model call, no tools. It reads a freight email and
 // fills in the answer sheet. Deliberately simple: it's the exam candidate, not the product.
 
-import type { Agent, AgentOutput } from "./types.js";
+import { REQUESTED_INFO, type Agent, type AgentOutput } from "./types.js";
 
 const SYSTEM_PROMPT = `You are an operations assistant at an ocean freight forwarder.
 You receive one customer email (it may be a forwarded thread) and must decide how to handle it.
@@ -15,6 +15,7 @@ Return ONLY a JSON object with these fields:
 - port_of_discharge: UN/LOCODE of the destination seaport (e.g. "NLRTM"), or null if unknown
 - dangerous_goods: whether the cargo is dangerous goods
 - action: "quote" (send a price), "ask" (ask the customer for missing information first), or "escalate" (hand to a human specialist)
+- requested_info: what you ask the customer for, chosen only from: weight, volume, dimensions, piece_count, incoterm, cargo_ready_date, delivery_deadline, sds, un_number, commodity_details. Empty list if you ask nothing. Never ask the customer about things that are our decision (port, route, carrier).
 - reply_email: the email you would send back`;
 
 const SCHEMA = {
@@ -22,7 +23,7 @@ const SCHEMA = {
   additionalProperties: false,
   required: [
     "customer", "customer_role", "incoterm", "legs_quoted", "insurance_included",
-    "port_of_discharge", "dangerous_goods", "action", "reply_email",
+    "port_of_discharge", "dangerous_goods", "action", "requested_info", "reply_email",
   ],
   properties: {
     customer: { type: "string" },
@@ -33,6 +34,7 @@ const SCHEMA = {
     port_of_discharge: { type: ["string", "null"] },
     dangerous_goods: { type: "boolean" },
     action: { type: "string", enum: ["quote", "ask", "escalate"] },
+    requested_info: { type: "array", items: { type: "string", enum: [...REQUESTED_INFO] } },
     reply_email: { type: "string" },
   },
 } as const;

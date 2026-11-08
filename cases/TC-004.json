@@ -20,7 +20,8 @@
     "dangerous_goods": false,
     "action_one_of": [
       "quote"
-    ]
+    ],
+    "requested_info": []
   },
   "notes": "Easy case. DAP: seller pays everything except import customs and duties (leg 4). Binh Duong is inland near Ho Chi Minh City; pickup to the port is leg 1. Reviewed by learner and Claude."
 }

@@ -16,6 +16,7 @@ const perfect: AgentOutput = {
   port_of_discharge: "deham",
   dangerous_goods: false,
   action: "quote",
+  requested_info: [],
   reply_email: "...",
 };
 

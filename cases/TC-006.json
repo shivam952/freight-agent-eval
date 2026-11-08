@@ -20,17 +20,16 @@
     "action_one_of": [
       "ask"
     ],
-    "reply_must_mention": [
+    "requested_info": [
       [
-        "weight",
-        "kg",
-        "kgs"
+        "weight"
       ],
       [
         "volume",
-        "cbm",
-        "dimension",
-        "pallet"
+        "dimensions"
+      ],
+      [
+        "piece_count"
       ]
     ]
   },

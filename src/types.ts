@@ -4,6 +4,13 @@
 export type Action = "quote" | "ask" | "escalate";
 export type CustomerRole = "buyer" | "seller";
 
+/**
+ * Things only the customer knows. Deliberately excludes the forwarder's own decisions
+ * (port, route, carrier): asking the customer about those is a mistake.
+ */
+export const REQUESTED_INFO = ["weight", "volume", "dimensions", "piece_count", "incoterm", "cargo_ready_date", "delivery_deadline", "sds", "un_number", "commodity_details"] as const;
+export type RequestedInfo = (typeof REQUESTED_INFO)[number];
+
 /** What an agent returns for one email (the "answer sheet"). */
 export interface AgentOutput {
   customer: string; // person or company asking for the quote
@@ -14,6 +21,8 @@ export interface AgentOutput {
   port_of_discharge: string | null; // UN/LOCODE, e.g. "NLRTM" for Rotterdam
   dangerous_goods: boolean;
   action: Action; // quote, ask the customer something, or escalate to a human
+  /** What the agent asks the customer for, from a fixed vocabulary. Empty if it asks nothing. */
+  requested_info: RequestedInfo[];
   reply_email: string; // the text the agent would send
 }
 
@@ -34,12 +43,11 @@ export interface Expected {
   dangerous_goods: boolean;
   action_one_of: Action[]; // any of these is acceptable (e.g. ask or escalate, never quote)
   /**
-   * Optional cheap content check on the reply: every group must be satisfied,
-   * and a group is satisfied if the reply mentions ANY of its words (case-insensitive).
-   * e.g. [["weight","kg"],["volume","cbm","dimension","pallet"]]
-   * Brittle by design (synonyms, other languages); a narrow judge replaces it later.
+   * What the agent must ask for. Each group must be covered by at least one of its items,
+   * e.g. [["weight"], ["volume", "dimensions"]]. An empty list means: ask for nothing.
+   * Extra items are allowed when the list is non-empty.
    */
-  reply_must_mention?: string[][];
+  requested_info: RequestedInfo[][];
 }
 
 export interface TestCase {

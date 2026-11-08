@@ -1,0 +1,17 @@
+{
+  "id": "TC-001",
+  "title": "E-bikes with lithium batteries, Kunshan to Köln, EXW",
+  "trap": true,
+  "email": "Subject: FW: RFQ 1x40HC SHA - Köln // rdy KW46\n\nHi team,\n\npls see below from our supplier, can you quote asap? We need the goods in our warehouse before the xmas sale. EXW as usual.\n\nThx & BR\nJonas Becker\nEinkauf / Purchasing\nRadhaus Köln GmbH\nThis e-mail may contain confidential information...\n\n> From: Li Wei\n> Dear Jonas, goods will be ready week 46. 1x40HC, 210 ctns e-bikes, approx 6,800 kgs, 58 cbm. Pick up at our factory in Kunshan (Jiangsu). Pls note the e-bikes have lithium batteries inside, MSDS attached.\n> Best regards",
+  "expected": {
+    "customer_contains": "Jonas",
+    "customer_role": "buyer",
+    "incoterm": "EXW",
+    "legs_quoted": [1, 2, 3, 4, 5],
+    "insurance_included": false,
+    "port_of_discharge_one_of": ["NLRTM", "BEANR", "DEHAM", "DEBRV"],
+    "dangerous_goods": true,
+    "action": "escalate"
+  },
+  "notes": "Traps: forwarded thread (supplier Li Wei is not the customer); lithium batteries = dangerous goods, so escalate instead of quoting; Köln is inland, so the port of discharge must be a seaport; week 46 = 9-15 Nov 2026, so Christmas delivery is at risk (checked in slice 2); MSDS attachment can't be seen. Insurance: not requested under EXW."
+}

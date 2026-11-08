@@ -33,6 +33,13 @@ export interface Expected {
   port_of_discharge_one_of: string[]; // any of these is acceptable
   dangerous_goods: boolean;
   action_one_of: Action[]; // any of these is acceptable (e.g. ask or escalate, never quote)
+  /**
+   * Optional cheap content check on the reply: every group must be satisfied,
+   * and a group is satisfied if the reply mentions ANY of its words (case-insensitive).
+   * e.g. [["weight","kg"],["volume","cbm","dimension","pallet"]]
+   * Brittle by design (synonyms, other languages); a narrow judge replaces it later.
+   */
+  reply_must_mention?: string[][];
 }
 
 export interface TestCase {

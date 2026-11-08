@@ -1,0 +1,26 @@
+{
+  "id": "TC-004",
+  "title": "Outdoor furniture, Ho Chi Minh City to Hamburg, DAP (seller asking)",
+  "trap": false,
+  "email": "Subject: RFQ 1x40HC HCMC -> Hamburg DAP\n\nHi, we're the exporter. 1x40HC outdoor furniture, 9,800 kg, 62 cbm, ready 30 Nov at our factory in Binh Duong. Terms DAP Hamburg, delivery to the buyer's warehouse in Hamburg-Wilhelmsburg. Pls quote.\n\nRgds,\nTran Minh\nSaigon Outdoor Co.",
+  "expected": {
+    "customer_contains": "Tran",
+    "customer_role": "seller",
+    "incoterm": "DAP",
+    "legs_quoted": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "insurance_included": false,
+    "port_of_discharge_one_of": [
+      "DEHAM"
+    ],
+    "dangerous_goods": false,
+    "action_one_of": [
+      "quote"
+    ]
+  },
+  "notes": "Easy case. DAP: seller pays everything except import customs and duties (leg 4). Binh Duong is inland near Ho Chi Minh City; pickup to the port is leg 1. Reviewed by learner and Claude."
+}

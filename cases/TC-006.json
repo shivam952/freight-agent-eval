@@ -1,0 +1,38 @@
+{
+  "id": "TC-006",
+  "title": "Kitchen appliances, Shanghai to Rotterdam, FOB, no weight/volume (missing info)",
+  "trap": true,
+  "email": "Subject: pls quote SHA-RTM\n\nhi, can u quote FOB Shanghai to Rotterdam for some pallets of kitchen appliances, delivery to our WH in Waalhaven. need it asap\n\nthx\nPieter\nde Vries Huishoud B.V.",
+  "expected": {
+    "customer_contains": "Pieter",
+    "customer_role": "buyer",
+    "incoterm": "FOB",
+    "legs_quoted": [
+      3,
+      4,
+      5
+    ],
+    "insurance_included": false,
+    "port_of_discharge_one_of": [
+      "NLRTM"
+    ],
+    "dangerous_goods": false,
+    "action_one_of": [
+      "ask"
+    ],
+    "reply_must_mention": [
+      [
+        "weight",
+        "kg",
+        "kgs"
+      ],
+      [
+        "volume",
+        "cbm",
+        "dimension",
+        "pallet"
+      ]
+    ]
+  },
+  "notes": "Trap: missing information. Incoterm and asker are known, so the scope (legs 3,4,5) is known; the missing weight/volume/count blocks the price, not the scope. Agent must ask for exactly those. Reviewed by learner and Claude."
+}

@@ -25,6 +25,19 @@
     "action_one_of": [
       "ask",
       "escalate"
+    ],
+    "reply_must_mention": [
+      [
+        "sds",
+        "msds",
+        "safety data sheet"
+      ],
+      [
+        "un number",
+        "un-number",
+        "un no",
+        "un3"
+      ]
     ]
   },
   "notes": "Traps: forwarded thread (supplier Li Wei is not the customer); lithium batteries = dangerous goods, so never quote directly; Köln is inland, so the port of discharge must be a seaport; week 46 = 9-15 Nov 2026, so Christmas delivery is at risk (checked in slice 2); MSDS attachment can't be seen. Insurance: not requested under EXW. Action: 'ask' (request SDS + UN number from the customer) and 'escalate' (hand to a dangerous-goods specialist) are both acceptable; the costly mistake is 'quote'. A customer SOP like 'DG always to a human' would narrow this to escalate only."

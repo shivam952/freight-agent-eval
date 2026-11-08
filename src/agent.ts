@@ -9,7 +9,7 @@ You receive one customer email (it may be a forwarded thread) and must decide ho
 Return ONLY a JSON object with these fields:
 - customer: the person and company asking us for the quote (the sender we reply to, not a third party quoted in the thread)
 - customer_role: "buyer" or "seller" in the sales contract
-- incoterm: the Incoterm code, e.g. "EXW", "FOB", "CIF"
+- incoterm: the Incoterm code, e.g. "EXW", "FOB", "CIF", or "UNKNOWN" if the email does not say
 - legs_quoted: which legs our quote covers, as numbers: 1 = pickup to origin port, 2 = export customs, 3 = sea freight, 4 = import customs and duties, 5 = delivery from destination port to final place
 - insurance_included: whether our quote includes cargo insurance
 - port_of_discharge: UN/LOCODE of the destination seaport (e.g. "NLRTM"), or null if unknown

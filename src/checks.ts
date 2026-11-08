@@ -15,7 +15,7 @@ const sameSet = (a: number[], b: number[]) =>
   a.length === b.length && [...a].sort().every((v, i) => v === [...b].sort()[i]);
 
 export function runChecks(out: AgentOutput, exp: Expected): CheckResult[] {
-  return [
+  const results: CheckResult[] = [
     {
       box: "customer",
       pass: norm(out.customer).includes(norm(exp.customer_contains)),
@@ -66,4 +66,15 @@ export function runChecks(out: AgentOutput, exp: Expected): CheckResult[] {
       got: out.action,
     },
   ];
+  if (exp.reply_must_mention) {
+    const reply = (out.reply_email ?? "").toLowerCase();
+    const missing = exp.reply_must_mention.filter((group) => !group.some((w) => reply.includes(w.toLowerCase())));
+    results.push({
+      box: "reply_mentions",
+      pass: missing.length === 0,
+      expected: exp.reply_must_mention.map((g) => g.join("|")).join(" AND "),
+      got: missing.length === 0 ? "all mentioned" : `missing: ${missing.map((g) => g.join("|")).join(", ")}`,
+    });
+  }
+  return results;
 }

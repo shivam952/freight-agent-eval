@@ -1,0 +1,31 @@
+{
+  "id": "TC-007",
+  "title": "Toys, Ningbo to Hamburg, no Incoterm (missing info)",
+  "trap": true,
+  "email": "Subject: price 1x40HC Ningbo-Hamburg\n\nHello, what is your price for 1x40HC toys from Ningbo to our warehouse in Hamburg? Ready mid Dec.\n\nRegards,\nKatrin Vogel\nSpielwelt GmbH",
+  "expected": {
+    "customer_contains": "Katrin",
+    "customer_role": "buyer",
+    "incoterm": "UNKNOWN",
+    "legs_quoted": [],
+    "insurance_included": false,
+    "port_of_discharge_one_of": [
+      "DEHAM"
+    ],
+    "dangerous_goods": false,
+    "action_one_of": [
+      "ask"
+    ],
+    "reply_must_mention": [
+      [
+        "incoterm",
+        "terms",
+        "fob",
+        "exw",
+        "who handles",
+        "origin"
+      ]
+    ]
+  },
+  "notes": "Trap: missing Incoterm, so the scope is unknown. Agent must write Incoterm UNKNOWN, quote no legs yet, and ask for the Incoterm (or who handles the China side). Katrin is the importer (goods to 'our warehouse'), so buyer. Follow-up after the customer answers is a multi-turn case for a later slice. Reviewed by learner and Claude."
+}

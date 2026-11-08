@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: FW: RFQ 1x40HC SHA - Köln // rdy KW46\n\nHi team,\n\npls see below from our supplier, can you quote asap? We need the goods in our warehouse before the xmas sale. EXW as usual.\n\nThx & BR\nJonas Becker\nEinkauf / Purchasing\nRadhaus Köln GmbH\nThis e-mail may contain confidential information...\n\n> From: Li Wei\n> Dear Jonas, goods will be ready week 46. 1x40HC, 210 ctns e-bikes, approx 6,800 kgs, 58 cbm. Pick up at our factory in Kunshan (Jiangsu). Pls note the e-bikes have lithium batteries inside, MSDS attached.\n> Best regards",
   "expected": {
-    "customer_contains": "Jonas",
+    "customer_one_of": [
+      "Jonas",
+      "Radhaus"
+    ],
     "customer_role": "buyer",
     "incoterm": "EXW",
     "legs_quoted": [

@@ -5,7 +5,10 @@
   "split": "holdout",
   "email": "Subject: Anfrage / quote 3x40HC Xiamen\n\nHallo zusammen, bitte um Angebot: 3x40HC Gartengeräte (garden tools), ca. 3 x 12.000 kg, FOB Xiamen, Lieferung an unser Lager in Hamburg-Allermöhe. Ware ist bald fertig, details folgen.\n\nGrüße,\nTobias Krüger\nGrünwerk Handels GmbH",
   "expected": {
-    "customer_contains": "Tobias",
+    "customer_one_of": [
+      "Tobias",
+      "Grünwerk"
+    ],
     "customer_role": "buyer",
     "incoterm": "FOB",
     "legs_quoted": [

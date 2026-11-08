@@ -37,7 +37,7 @@ export interface Agent {
 
 /** The correct answer for one test case, written and reviewed before any run. */
 export interface Expected {
-  customer_contains: string; // a name that must appear in `customer`
+  customer_one_of: string[]; // `customer` must contain at least one: the person or their company (the wrong party is the real error)
   customer_role: CustomerRole;
   incoterm: string;
   legs_quoted: number[];

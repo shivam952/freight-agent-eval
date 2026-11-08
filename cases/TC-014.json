@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: EXW Foshan KW49\n\nHello, 1x40HC ceramic kitchenware, 11,000 kg, EXW our supplier in Foshan, ready KW49. We need it in our Hamburg store by end of February for the spring launch. Please quote.\n\nJulia Brandt\nBrandt Küche & Tisch GmbH",
   "expected": {
-    "customer_contains": "Julia",
+    "customer_one_of": [
+      "Julia",
+      "Brandt"
+    ],
     "customer_role": "buyer",
     "incoterm": "EXW",
     "legs_quoted": [

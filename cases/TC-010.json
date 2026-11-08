@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: 1x40HC Shanghai -> Duisburg FOB\n\nHello, FOB Shanghai, 1x40HC machine parts 18,500 kg, ready 20 Nov. Final delivery Duisburg, our plant in Rheinhausen. Pls quote door delivery.\n\nThanks,\nMarkus Hoffmann\nHoffmann Antriebstechnik GmbH",
   "expected": {
-    "customer_contains": "Markus",
+    "customer_one_of": [
+      "Markus",
+      "Hoffmann"
+    ],
     "customer_role": "buyer",
     "incoterm": "FOB",
     "legs_quoted": [

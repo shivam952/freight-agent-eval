@@ -5,7 +5,10 @@
   "split": "holdout",
   "email": "Subject: URGENT 1x40HC SHA-RTM FOB\n\nHi, FOB Shanghai, 1x40HC sports shoes, 7,200 kg, ready 20 Nov. Must be at our DC in Venlo by 1 Dec latest for the Black Friday follow-up promo!! pls confirm asap\n\nMark Jansen\nJansen Sport B.V.",
   "expected": {
-    "customer_contains": "Mark",
+    "customer_one_of": [
+      "Mark",
+      "Jansen"
+    ],
     "customer_role": "buyer",
     "incoterm": "FOB",
     "legs_quoted": [

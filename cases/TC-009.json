@@ -5,7 +5,10 @@
   "split": "holdout",
   "email": "Subject: RE: CIF Rotterdam - need your help on arrival\n\nHi, our supplier ships 2x40HC tyres CIF Rotterdam, ETA approx 10 Jan. Can you quote us for everything after arrival up to our DC in Tilburg?\n\nKind regards,\nSanne Bakker\nBakker Bandencentrale B.V.",
   "expected": {
-    "customer_contains": "Sanne",
+    "customer_one_of": [
+      "Sanne",
+      "Bakker"
+    ],
     "customer_role": "buyer",
     "incoterm": "CIF",
     "legs_quoted": [

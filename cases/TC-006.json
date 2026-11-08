@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: pls quote SHA-RTM\n\nhi, can u quote FOB Shanghai to Rotterdam for some pallets of kitchen appliances, delivery to our WH in Waalhaven. need it asap\n\nthx\nPieter\nde Vries Huishoud B.V.",
   "expected": {
-    "customer_contains": "Pieter",
+    "customer_one_of": [
+      "Pieter",
+      "de Vries"
+    ],
     "customer_role": "buyer",
     "incoterm": "FOB",
     "legs_quoted": [

@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: price 1x40HC Ningbo-Hamburg\n\nHello, what is your price for 1x40HC toys from Ningbo to our warehouse in Hamburg? Ready mid Dec.\n\nRegards,\nKatrin Vogel\nSpielwelt GmbH",
   "expected": {
-    "customer_contains": "Katrin",
+    "customer_one_of": [
+      "Katrin",
+      "Spielwelt"
+    ],
     "customer_role": "buyer",
     "incoterm": "UNKNOWN",
     "legs_quoted": [],

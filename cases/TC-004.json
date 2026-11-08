@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: RFQ 1x40HC HCMC -> Hamburg DAP\n\nHi, we're the exporter. 1x40HC outdoor furniture, 9,800 kg, 62 cbm, ready 30 Nov at our factory in Binh Duong. Terms DAP Hamburg, delivery to the buyer's warehouse in Hamburg-Wilhelmsburg. Pls quote.\n\nRgds,\nTran Minh\nSaigon Outdoor Co.",
   "expected": {
-    "customer_contains": "Tran",
+    "customer_one_of": [
+      "Tran",
+      "Saigon Outdoor"
+    ],
     "customer_role": "seller",
     "incoterm": "DAP",
     "legs_quoted": [

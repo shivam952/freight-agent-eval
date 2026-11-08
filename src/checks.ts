@@ -18,8 +18,8 @@ export function runChecks(out: AgentOutput, exp: Expected): CheckResult[] {
   const results: CheckResult[] = [
     {
       box: "customer",
-      pass: norm(out.customer).includes(norm(exp.customer_contains)),
-      expected: `contains "${exp.customer_contains}"`,
+      pass: exp.customer_one_of.some((name) => norm(out.customer).includes(norm(name))),
+      expected: `contains one of ${exp.customer_one_of.map((n) => `"${n}"`).join("/")}`,
       got: out.customer,
     },
     {

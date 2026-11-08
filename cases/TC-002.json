@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: Quote request 1x20GP Ningbo - Hamburg\n\nHello, please quote for 1x20GP, wooden furniture, 4,200 kg, 26 cbm. Terms FOB Ningbo. Cargo ready 23 Nov 2026. Delivery to our warehouse in Hamburg-Billbrook.\n\nKind regards,\nAnna Schulz\nNordhaus Interiors GmbH, Hamburg",
   "expected": {
-    "customer_contains": "Anna",
+    "customer_one_of": [
+      "Anna",
+      "Nordhaus"
+    ],
     "customer_role": "buyer",
     "incoterm": "FOB",
     "legs_quoted": [

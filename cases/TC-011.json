@@ -5,7 +5,10 @@
   "split": "holdout",
   "email": "Subject: EXW Chongqing - 2x40HC to Hamburg\n\nHi team, 2x40HC motorcycle spare parts, 2 x 16,000 kg, EXW our supplier's factory in Chongqing. Ready 25 Nov. Delivery to our warehouse in Hamburg-Harburg. Please quote.\n\nBest regards,\nElena Wolff\nWolff Moto Teile GmbH",
   "expected": {
-    "customer_contains": "Elena",
+    "customer_one_of": [
+      "Elena",
+      "Wolff"
+    ],
     "customer_role": "buyer",
     "incoterm": "EXW",
     "legs_quoted": [

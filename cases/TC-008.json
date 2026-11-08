@@ -5,7 +5,10 @@
   "split": "dev",
   "email": "Subject: quotation request EXW Ningbo\n\nDear Sir/Madam, we are a manufacturer of office chairs in Ningbo. Our customer in Germany buys EXW our factory. Pls quote 1x40HC to Frankfurt.\n\nBest regards,\nLi Na\nNingbo Comfort Seating Co.",
   "expected": {
-    "customer_contains": "Li Na",
+    "customer_one_of": [
+      "Li Na",
+      "Ningbo Comfort"
+    ],
     "customer_role": "seller",
     "incoterm": "EXW",
     "legs_quoted": [],

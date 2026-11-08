@@ -1,16 +1,19 @@
 // Runner: load every test case, send it through the plug to an agent,
 // check the answer sheet, print results and save the full run for later comparison.
 //
-// Usage: npx tsx src/run.ts [model] [case-id ...]
+// Usage: npm run eval -- [--agent v0|v1] [--show-holdout] [model] [case-id ...]
 
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { makeReferenceAgent } from "./agent.js";
+import { makeReferenceAgentV1 } from "./agentV1.js";
 import { runChecks, type CheckResult } from "./checks.js";
 import type { AgentOutput, TestCase } from "./types.js";
 
 const args = process.argv.slice(2);
 const showHoldout = args.includes("--show-holdout");
-const rest = args.filter((a) => a !== "--show-holdout");
+const agentFlag = args.indexOf("--agent");
+const agentVersion = agentFlag >= 0 ? args[agentFlag + 1] : "v0";
+const rest = args.filter((a, i) => a !== "--show-holdout" && i !== agentFlag && i !== agentFlag + 1);
 const model = rest[0] ?? "google/gemini-2.5-flash-lite";
 const only = rest.slice(1);
 
@@ -20,7 +23,7 @@ const cases: TestCase[] = readdirSync("cases")
   .map((f) => JSON.parse(readFileSync(`cases/${f}`, "utf8")))
   .filter((tc: TestCase) => only.length === 0 || only.includes(tc.id));
 
-const agent = makeReferenceAgent(model);
+const agent = agentVersion === "v1" ? makeReferenceAgentV1(model) : makeReferenceAgent(model);
 const results: { id: string; trap: boolean; split: string; output?: AgentOutput; checks: CheckResult[]; error?: string }[] = [];
 
 console.log(`Agent: ${agent.name}\n`);
@@ -36,6 +39,7 @@ for (const tc of cases) {
     for (const c of failed) console.log(`    ✗ ${c.box}: expected ${c.expected}, got ${c.got}`);
   } catch (e) {
     results.push({ id: tc.id, trap: tc.trap, split: tc.split, checks: [], error: String(e) });
+    if (tc.split === "holdout" && !showHoldout) continue;
     console.log(`${tc.id} ERROR ${String(e).slice(0, 200)}`);
   }
 }
@@ -50,6 +54,6 @@ console.log(`\nDev: ${summary("dev")} cases passed (easy: ${easy.filter(ok).leng
 console.log(`Holdout: ${summary("holdout")} cases passed${showHoldout ? "" : " (details hidden; --show-holdout to reveal)"}`);
 
 mkdirSync("runs", { recursive: true });
-const file = `runs/${new Date().toISOString().replace(/[:.]/g, "-")}_${model.replace(/\//g, "_")}.json`;
+const file = `runs/${new Date().toISOString().replace(/[:.]/g, "-")}_${agentVersion}_${model.replace(/\//g, "_")}.json`;
 writeFileSync(file, JSON.stringify({ agent: agent.name, model, at: new Date().toISOString(), results }, null, 2));
 console.log(`Saved ${file}`);

@@ -3,7 +3,7 @@
 
 import { REQUESTED_INFO, type Agent, type AgentOutput } from "./types.js";
 
-const SYSTEM_PROMPT = `You are an operations assistant at an ocean freight forwarder.
+export const SYSTEM_PROMPT = `You are an operations assistant at an ocean freight forwarder.
 You receive one customer email (it may be a forwarded thread) and must decide how to handle it.
 
 Return ONLY a JSON object with these fields:
@@ -19,7 +19,7 @@ Return ONLY a JSON object with these fields:
 - requested_info: what you ask the customer for, chosen only from: ${REQUESTED_INFO.join(", ")}. Empty list if you ask nothing. Never ask the customer about things that are our decision (port, route, carrier).
 - reply_email: the email you would send back`;
 
-const SCHEMA = {
+export const SCHEMA = {
   type: "object",
   additionalProperties: false,
   required: [

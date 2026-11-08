@@ -6,6 +6,7 @@
 
 import { SCHEMA, SYSTEM_PROMPT } from "./agent.js";
 import { incotermScope, type Role } from "./tools/incoterms.js";
+import type { Scope } from "./tools/incoterms.js";
 import type { Agent, AgentOutput } from "./types.js";
 
 const TOOL = {
@@ -49,42 +50,47 @@ async function chat(body: object) {
   };
 }
 
+/** One v1 pass: forced tool call, then the answer sheet. Also returns the tool result for guardrails. */
+export async function runV1(model: string, email: string): Promise<{ output: AgentOutput; scope: Scope }> {
+  const system = { role: "system", content: SYSTEM_PROMPT + TOOL_RULES };
+  const user = { role: "user", content: email };
+
+  // Step 1: force exactly one call to the Incoterm tool.
+  const first = await chat({
+    model,
+    temperature: 0,
+    messages: [system, user],
+    tools: [TOOL],
+    tool_choice: { type: "function", function: { name: "incoterm_scope" } },
+  });
+  const call = first.choices[0].message.tool_calls?.[0];
+  if (!call) throw new Error("model did not call incoterm_scope");
+  const args = JSON.parse(call.function.arguments) as { incoterm: string; asker_role: Role };
+  const scope = incotermScope(args.incoterm, args.asker_role);
+
+  // Step 2: give the tool result back as a plain message (some models, e.g. Gemini 2.5
+  // Flash-Lite, can't combine tool calls with structured output in one request).
+  const second = await chat({
+    model,
+    temperature: 0,
+    messages: [
+      system,
+      user,
+      {
+        role: "system",
+        content: `Tool incoterm_scope(${JSON.stringify(args)}) returned: ${JSON.stringify(scope)}. Now return the JSON answer sheet.`,
+      },
+    ],
+    response_format: { type: "json_schema", json_schema: { name: "answer_sheet", strict: true, schema: SCHEMA } },
+  });
+  return { output: JSON.parse(second.choices[0].message.content ?? "") as AgentOutput, scope };
+}
+
 export function makeReferenceAgentV1(model: string): Agent {
   return {
     name: `reference-v1/${model}`,
     async run(email: string): Promise<AgentOutput> {
-      const system = { role: "system", content: SYSTEM_PROMPT + TOOL_RULES };
-      const user = { role: "user", content: email };
-
-      // Step 1: force exactly one call to the Incoterm tool.
-      const first = await chat({
-        model,
-        temperature: 0,
-        messages: [system, user],
-        tools: [TOOL],
-        tool_choice: { type: "function", function: { name: "incoterm_scope" } },
-      });
-      const call = first.choices[0].message.tool_calls?.[0];
-      if (!call) throw new Error("model did not call incoterm_scope");
-      const args = JSON.parse(call.function.arguments) as { incoterm: string; asker_role: Role };
-      const scope = incotermScope(args.incoterm, args.asker_role);
-
-      // Step 2: give the tool result back as a plain message (some models, e.g. Gemini 2.5
-      // Flash-Lite, can't combine tool calls with structured output in one request).
-      const second = await chat({
-        model,
-        temperature: 0,
-        messages: [
-          system,
-          user,
-          {
-            role: "system",
-            content: `Tool incoterm_scope(${JSON.stringify(args)}) returned: ${JSON.stringify(scope)}. Now return the JSON answer sheet.`,
-          },
-        ],
-        response_format: { type: "json_schema", json_schema: { name: "answer_sheet", strict: true, schema: SCHEMA } },
-      });
-      return JSON.parse(second.choices[0].message.content ?? "") as AgentOutput;
+      return (await runV1(model, email)).output;
     },
   };
 }

@@ -27,6 +27,8 @@ export interface AgentOutput {
   /** What the agent asks the customer for, from a fixed vocabulary. Empty if it asks nothing. */
   requested_info: RequestedInfo[];
   reply_email: string; // the text the agent would send
+  /** Not filled by the model: added by code (e.g. guardrails) so the harness can see what changed. */
+  trace?: { raw: AgentOutput; interventions: string[] };
 }
 
 /** Any agent (ours, a raw model, someday Zauber's) plugs in by implementing this. */

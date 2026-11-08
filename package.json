@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsx --test src/tools/*.test.ts",
+    "test": "tsx --test src/tools/*.test.ts src/*.test.ts",
     "typecheck": "tsc -p .",
     "selftest": "tsx src/checks.selftest.ts",
     "eval": "NODE_USE_ENV_PROXY=1 NODE_NO_WARNINGS=1 tsx src/run.ts"

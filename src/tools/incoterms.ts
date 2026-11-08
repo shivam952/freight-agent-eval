@@ -12,7 +12,8 @@ export type ScopeNote =
   | "ok"
   | "unknown_incoterm" // no Incoterm given: ask the customer before quoting
   | "asker_owns_no_legs" // e.g. seller asking under EXW: nothing to quote them
-  | "named_place_needed"; // FCA: who does leg 1 depends on the named place
+  | "named_place_needed" // FCA: who does leg 1 depends on the named place
+  | "unknown_role"; // we don't know if the asker is buyer or seller: ask before quoting
 
 export interface Scope {
   legs: number[];

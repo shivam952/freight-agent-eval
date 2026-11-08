@@ -48,6 +48,8 @@ export function applyGuardrails(raw: AgentOutput, scope: Scope): { output: Agent
     setAction("ask", "asker owns no legs");
   }
 
+  if (scope.note === "unknown_role") setAction("ask", "role unclear");
+
   // 3. Never quote dangerous goods directly, an impossible deadline, or with open questions.
   if (out.dangerous_goods && out.action === "quote") {
     need("sds");

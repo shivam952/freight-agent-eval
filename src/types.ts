@@ -16,7 +16,7 @@ export type RequestedInfo = (typeof REQUESTED_INFO)[number];
 /** What an agent returns for one email (the "answer sheet"). */
 export interface AgentOutput {
   customer: string; // person or company asking for the quote
-  customer_role: CustomerRole; // buyer or seller in the sales contract
+  customer_role: CustomerRole | "unclear"; // buyer or seller in the sales contract ("unclear": v4+ only)
   incoterm: string; // e.g. "EXW", "FOB", "CIF"
   legs_quoted: number[]; // 1 = pickup, 2 = export customs, 3 = sea freight, 4 = import customs, 5 = delivery
   insurance_included: boolean;

@@ -32,7 +32,7 @@ export interface Expected {
   insurance_included: boolean;
   port_of_discharge_one_of: string[]; // any of these is acceptable
   dangerous_goods: boolean;
-  action: Action;
+  action_one_of: Action[]; // any of these is acceptable (e.g. ask or escalate, never quote)
 }
 
 export interface TestCase {

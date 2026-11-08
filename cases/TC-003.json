@@ -7,11 +7,19 @@
     "customer_contains": "Chen",
     "customer_role": "seller",
     "incoterm": "CIF",
-    "legs_quoted": [1, 2, 3],
+    "legs_quoted": [
+      1,
+      2,
+      3
+    ],
     "insurance_included": true,
-    "port_of_discharge_one_of": ["NLRTM"],
+    "port_of_discharge_one_of": [
+      "NLRTM"
+    ],
     "dangerous_goods": false,
-    "action": "quote"
+    "action_one_of": [
+      "quote"
+    ]
   },
   "notes": "Easy case. CIF = seller pays freight AND cargo insurance to the destination port. No delivery leg after Rotterdam."
 }

@@ -7,11 +7,19 @@
     "customer_contains": "Anna",
     "customer_role": "buyer",
     "incoterm": "FOB",
-    "legs_quoted": [3, 4, 5],
+    "legs_quoted": [
+      3,
+      4,
+      5
+    ],
     "insurance_included": false,
-    "port_of_discharge_one_of": ["DEHAM"],
+    "port_of_discharge_one_of": [
+      "DEHAM"
+    ],
     "dangerous_goods": false,
-    "action": "quote"
+    "action_one_of": [
+      "quote"
+    ]
   },
   "notes": "Easy case. Hamburg-Billbrook is a district of Hamburg, so the port is Hamburg and leg 5 is a short local truck."
 }

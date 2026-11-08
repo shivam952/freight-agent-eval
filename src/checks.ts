@@ -61,8 +61,8 @@ export function runChecks(out: AgentOutput, exp: Expected): CheckResult[] {
     },
     {
       box: "action",
-      pass: out.action === exp.action,
-      expected: exp.action,
+      pass: exp.action_one_of.includes(out.action),
+      expected: `one of ${exp.action_one_of.join("/")}`,
       got: out.action,
     },
   ];

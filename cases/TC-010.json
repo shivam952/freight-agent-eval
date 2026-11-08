@@ -1,0 +1,27 @@
+{
+  "id": "TC-010",
+  "title": "Machine parts, Shanghai to Duisburg (inland destination), FOB",
+  "trap": true,
+  "email": "Subject: 1x40HC Shanghai -> Duisburg FOB\n\nHello, FOB Shanghai, 1x40HC machine parts 18,500 kg, ready 20 Nov. Final delivery Duisburg, our plant in Rheinhausen. Pls quote door delivery.\n\nThanks,\nMarkus Hoffmann\nHoffmann Antriebstechnik GmbH",
+  "expected": {
+    "customer_contains": "Markus",
+    "customer_role": "buyer",
+    "incoterm": "FOB",
+    "legs_quoted": [
+      3,
+      4,
+      5
+    ],
+    "insurance_included": false,
+    "dangerous_goods": false,
+    "port_of_discharge_one_of": [
+      "NLRTM",
+      "BEANR"
+    ],
+    "action_one_of": [
+      "quote"
+    ],
+    "requested_info": []
+  },
+  "notes": "Trap: Duisburg is Europe's largest INLAND port with a valid code (DEDUI), but ocean vessels discharge at Rotterdam or Antwerp; the container continues by barge, rail or truck. DEDUI as port of discharge = real code, wrong answer. Door delivery explicitly requested. Reviewed by learner and Claude."
+}

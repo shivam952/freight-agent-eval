@@ -12,10 +12,10 @@ Return ONLY a JSON object with these fields:
 - incoterm: the Incoterm code, e.g. "EXW", "FOB", "CIF", or "UNKNOWN" if the email does not say
 - legs_quoted: which legs our quote covers, as numbers: 1 = pickup to origin port, 2 = export customs, 3 = sea freight, 4 = import customs and duties, 5 = delivery from destination port to final place
 - insurance_included: whether our quote includes cargo insurance
-- port_of_discharge: UN/LOCODE of the destination seaport (e.g. "NLRTM"), or null if unknown
+- port_of_discharge: UN/LOCODE of the destination seaport (e.g. "NLRTM"), or null if unknown or if we quote nothing
 - dangerous_goods: whether the cargo is dangerous goods
 - action: "quote" (send a price), "ask" (ask the customer for missing information first), or "escalate" (hand to a human specialist)
-- requested_info: what you ask the customer for, chosen only from: weight, volume, dimensions, piece_count, incoterm, cargo_ready_date, delivery_deadline, sds, un_number, commodity_details. Empty list if you ask nothing. Never ask the customer about things that are our decision (port, route, carrier).
+- requested_info: what you ask the customer for, chosen only from: ${REQUESTED_INFO.join(", ")}. Empty list if you ask nothing. Never ask the customer about things that are our decision (port, route, carrier).
 - reply_email: the email you would send back`;
 
 const SCHEMA = {

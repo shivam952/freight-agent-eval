@@ -8,7 +8,7 @@ export type CustomerRole = "buyer" | "seller";
  * Things only the customer knows. Deliberately excludes the forwarder's own decisions
  * (port, route, carrier): asking the customer about those is a mistake.
  */
-export const REQUESTED_INFO = ["weight", "volume", "dimensions", "piece_count", "incoterm", "cargo_ready_date", "delivery_deadline", "sds", "un_number", "commodity_details"] as const;
+export const REQUESTED_INFO = ["weight", "volume", "dimensions", "piece_count", "incoterm", "cargo_ready_date", "delivery_deadline", "sds", "un_number", "commodity_details", "counterparty_contact"] as const;
 export type RequestedInfo = (typeof REQUESTED_INFO)[number];
 
 /** What an agent returns for one email (the "answer sheet"). */
@@ -39,7 +39,7 @@ export interface Expected {
   incoterm: string;
   legs_quoted: number[];
   insurance_included: boolean;
-  port_of_discharge_one_of: string[]; // any of these is acceptable
+  port_of_discharge_one_of: string[]; // any of these is acceptable; ["NONE"] = no port expected (nothing is quoted)
   dangerous_goods: boolean;
   action_one_of: Action[]; // any of these is acceptable (e.g. ask or escalate, never quote)
   /**

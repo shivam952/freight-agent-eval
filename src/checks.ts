@@ -49,7 +49,7 @@ export function runChecks(out: AgentOutput, exp: Expected): CheckResult[] {
     },
     {
       box: "port_of_discharge",
-      pass: exp.port_of_discharge_one_of.map(norm).includes(norm(out.port_of_discharge)),
+      pass: exp.port_of_discharge_one_of.map(norm).includes(norm(out.port_of_discharge) || "NONE"),
       expected: `one of ${exp.port_of_discharge_one_of.join("/")}`,
       got: String(out.port_of_discharge),
     },

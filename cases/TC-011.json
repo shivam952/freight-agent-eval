@@ -1,0 +1,28 @@
+{
+  "id": "TC-011",
+  "title": "Motorcycle parts, Chongqing (inland origin) to Hamburg, EXW",
+  "trap": true,
+  "email": "Subject: EXW Chongqing - 2x40HC to Hamburg\n\nHi team, 2x40HC motorcycle spare parts, 2 x 16,000 kg, EXW our supplier's factory in Chongqing. Ready 25 Nov. Delivery to our warehouse in Hamburg-Harburg. Please quote.\n\nBest regards,\nElena Wolff\nWolff Moto Teile GmbH",
+  "expected": {
+    "customer_contains": "Elena",
+    "customer_role": "buyer",
+    "incoterm": "EXW",
+    "legs_quoted": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "insurance_included": false,
+    "dangerous_goods": false,
+    "port_of_discharge_one_of": [
+      "DEHAM"
+    ],
+    "action_one_of": [
+      "quote"
+    ],
+    "requested_info": []
+  },
+  "notes": "Trap: inland ORIGIN. Chongqing is far up the Yangtze (~1,500 km from Shanghai); leg 1 is typically river barge or rail to Shanghai, adding roughly one to two weeks. Quoting leg 1 as a short truck ride badly under-prices it (checked in a later slice). Hamburg-Harburg is a Hamburg district: short local leg 5. Reviewed by learner and Claude."
+}

@@ -1,0 +1,32 @@
+{
+  "id": "TC-014",
+  "title": "Ceramic kitchenware, Foshan to Hamburg, EXW, feasible deadline (no false alarm)",
+  "trap": true,
+  "split": "dev",
+  "email": "Subject: EXW Foshan KW49\n\nHello, 1x40HC ceramic kitchenware, 11,000 kg, EXW our supplier in Foshan, ready KW49. We need it in our Hamburg store by end of February for the spring launch. Please quote.\n\nJulia Brandt\nBrandt Küche & Tisch GmbH",
+  "expected": {
+    "customer_contains": "Julia",
+    "customer_role": "buyer",
+    "incoterm": "EXW",
+    "legs_quoted": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "insurance_included": false,
+    "port_of_discharge_one_of": [
+      "DEHAM"
+    ],
+    "dangerous_goods": false,
+    "action_one_of": [
+      "quote"
+    ],
+    "requested_info": [],
+    "deadline_risk_one_of": [
+      "none"
+    ]
+  },
+  "notes": "Trap (reverse): KW49 2026 = 30 Nov-6 Dec; + 5-6 weeks -> arrival around mid-January, comfortably before end of February. An over-cautious agent raising a false alarm fails. Foshan is near Guangzhou: short leg 1 to a Pearl River Delta port. Reviewed by learner and Claude."
+}

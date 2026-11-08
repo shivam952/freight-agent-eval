@@ -15,6 +15,7 @@ Return ONLY a JSON object with these fields:
 - port_of_discharge: UN/LOCODE of the destination seaport (e.g. "NLRTM"), or null if unknown or if we quote nothing
 - dangerous_goods: whether the cargo is dangerous goods
 - action: "quote" (send a price), "ask" (ask the customer for missing information first), or "escalate" (hand to a human specialist)
+- deadline_risk: "none" (no deadline, or comfortably met), "at_risk" (tight), or "impossible" (cannot be met by sea freight). Consider cargo-ready date, transit time and any deadline the customer states or implies.
 - requested_info: what you ask the customer for, chosen only from: ${REQUESTED_INFO.join(", ")}. Empty list if you ask nothing. Never ask the customer about things that are our decision (port, route, carrier).
 - reply_email: the email you would send back`;
 
@@ -23,7 +24,7 @@ const SCHEMA = {
   additionalProperties: false,
   required: [
     "customer", "customer_role", "incoterm", "legs_quoted", "insurance_included",
-    "port_of_discharge", "dangerous_goods", "action", "requested_info", "reply_email",
+    "port_of_discharge", "dangerous_goods", "action", "deadline_risk", "requested_info", "reply_email",
   ],
   properties: {
     customer: { type: "string" },
@@ -34,6 +35,7 @@ const SCHEMA = {
     port_of_discharge: { type: ["string", "null"] },
     dangerous_goods: { type: "boolean" },
     action: { type: "string", enum: ["quote", "ask", "escalate"] },
+    deadline_risk: { type: "string", enum: ["none", "at_risk", "impossible"] },
     requested_info: { type: "array", items: { type: "string", enum: [...REQUESTED_INFO] } },
     reply_email: { type: "string" },
   },

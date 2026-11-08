@@ -3,6 +3,8 @@
 
 export type Action = "quote" | "ask" | "escalate";
 export type CustomerRole = "buyer" | "seller";
+/** none = no deadline or comfortably met; at_risk = tight; impossible = cannot be met by sea */
+export type DeadlineRisk = "none" | "at_risk" | "impossible";
 
 /**
  * Things only the customer knows. Deliberately excludes the forwarder's own decisions
@@ -21,6 +23,7 @@ export interface AgentOutput {
   port_of_discharge: string | null; // UN/LOCODE, e.g. "NLRTM" for Rotterdam
   dangerous_goods: boolean;
   action: Action; // quote, ask the customer something, or escalate to a human
+  deadline_risk: DeadlineRisk;
   /** What the agent asks the customer for, from a fixed vocabulary. Empty if it asks nothing. */
   requested_info: RequestedInfo[];
   reply_email: string; // the text the agent would send
@@ -48,6 +51,7 @@ export interface Expected {
    * Extra items are allowed when the list is non-empty.
    */
   requested_info: RequestedInfo[][];
+  deadline_risk_one_of: DeadlineRisk[];
 }
 
 export interface TestCase {
@@ -56,5 +60,6 @@ export interface TestCase {
   trap: boolean; // true = contains deliberate traps; false = easy case the agent must always pass
   email: string;
   expected: Expected;
+  split: "dev" | "holdout"; // holdout cases are never inspected while building tools
   notes?: string; // why the expected answer is what it is
 }

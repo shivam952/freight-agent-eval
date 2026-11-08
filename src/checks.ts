@@ -66,6 +66,12 @@ export function runChecks(out: AgentOutput, exp: Expected): CheckResult[] {
       got: out.action,
     },
   ];
+  results.push({
+    box: "deadline_risk",
+    pass: exp.deadline_risk_one_of.includes(out.deadline_risk),
+    expected: `one of ${exp.deadline_risk_one_of.join("/")}`,
+    got: out.deadline_risk,
+  });
   const asked = out.requested_info ?? [];
   const missing = exp.requested_info.filter((group) => !group.some((item) => asked.includes(item)));
   results.push({

@@ -2,6 +2,7 @@
   "id": "TC-003",
   "title": "LED lamps, Shenzhen to Rotterdam, CIF (seller asking)",
   "trap": false,
+  "split": "dev",
   "email": "Subject: RFQ 2x40HC Shenzhen - Rotterdam CIF\n\nDear team, we are the exporter. Please quote 2x40HC LED lamps (non-hazardous), 15,000 kg total, ready 1 Dec 2026 at our factory in Shenzhen (Bao'an). Terms CIF Rotterdam.\n\nBest regards,\nChen Hao\nBrightway Lighting Co., Ltd.",
   "expected": {
     "customer_contains": "Chen",
@@ -20,7 +21,10 @@
     "action_one_of": [
       "quote"
     ],
-    "requested_info": []
+    "requested_info": [],
+    "deadline_risk_one_of": [
+      "none"
+    ]
   },
   "notes": "Easy case. CIF = seller pays freight AND cargo insurance to the destination port. No delivery leg after Rotterdam."
 }

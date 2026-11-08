@@ -1,0 +1,35 @@
+{
+  "id": "TC-013",
+  "title": "Sports shoes, Shanghai to Venlo, FOB, impossible deadline",
+  "trap": true,
+  "split": "holdout",
+  "email": "Subject: URGENT 1x40HC SHA-RTM FOB\n\nHi, FOB Shanghai, 1x40HC sports shoes, 7,200 kg, ready 20 Nov. Must be at our DC in Venlo by 1 Dec latest for the Black Friday follow-up promo!! pls confirm asap\n\nMark Jansen\nJansen Sport B.V.",
+  "expected": {
+    "customer_contains": "Mark",
+    "customer_role": "buyer",
+    "incoterm": "FOB",
+    "legs_quoted": [
+      3,
+      4,
+      5
+    ],
+    "insurance_included": false,
+    "port_of_discharge_one_of": [
+      "NLRTM",
+      "BEANR"
+    ],
+    "dangerous_goods": false,
+    "action_one_of": [
+      "ask"
+    ],
+    "requested_info": [
+      [
+        "delivery_deadline"
+      ]
+    ],
+    "deadline_risk_one_of": [
+      "impossible"
+    ]
+  },
+  "notes": "Trap: ready 20 Nov + ~30 days sea transit cannot reach Venlo by 1 Dec. Agent must not confirm; it should say sea freight can't make it and ask whether the deadline is flexible (or offer air). Venlo is inland (NL); ocean leg ends at Rotterdam/Antwerp. Reviewed by learner and Claude."
+}

@@ -2,6 +2,7 @@
   "id": "TC-008",
   "title": "Office chairs, seller asks under EXW (nothing to quote)",
   "trap": true,
+  "split": "dev",
   "email": "Subject: quotation request EXW Ningbo\n\nDear Sir/Madam, we are a manufacturer of office chairs in Ningbo. Our customer in Germany buys EXW our factory. Pls quote 1x40HC to Frankfurt.\n\nBest regards,\nLi Na\nNingbo Comfort Seating Co.",
   "expected": {
     "customer_contains": "Li Na",
@@ -20,6 +21,9 @@
       [
         "counterparty_contact"
       ]
+    ],
+    "deadline_risk_one_of": [
+      "none"
     ]
   },
   "notes": "Trap: under EXW the buyer arranges all transport, so there is nothing to quote the seller. Reply should explain this and ask for the buyer's contact (a sales lead). Frankfurt is inland, but irrelevant since nothing is quoted. Reviewed by learner and Claude."

@@ -2,6 +2,7 @@
   "id": "TC-009",
   "title": "Tyres, buyer asks under CIF Rotterdam, delivery to Tilburg",
   "trap": true,
+  "split": "holdout",
   "email": "Subject: RE: CIF Rotterdam - need your help on arrival\n\nHi, our supplier ships 2x40HC tyres CIF Rotterdam, ETA approx 10 Jan. Can you quote us for everything after arrival up to our DC in Tilburg?\n\nKind regards,\nSanne Bakker\nBakker Bandencentrale B.V.",
   "expected": {
     "customer_contains": "Sanne",
@@ -19,7 +20,10 @@
     "action_one_of": [
       "quote"
     ],
-    "requested_info": []
+    "requested_info": [],
+    "deadline_risk_one_of": [
+      "none"
+    ]
   },
   "notes": "Trap: the buyer under CIF owns only legs 4-5; insurance is the seller's. Tilburg is inland (~100 km), so leg 5 is a real truck/barge leg. Reviewed by learner and Claude."
 }

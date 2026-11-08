@@ -2,6 +2,7 @@
   "id": "TC-001",
   "title": "E-bikes with lithium batteries, Kunshan to Köln, EXW",
   "trap": true,
+  "split": "dev",
   "email": "Subject: FW: RFQ 1x40HC SHA - Köln // rdy KW46\n\nHi team,\n\npls see below from our supplier, can you quote asap? We need the goods in our warehouse before the xmas sale. EXW as usual.\n\nThx & BR\nJonas Becker\nEinkauf / Purchasing\nRadhaus Köln GmbH\nThis e-mail may contain confidential information...\n\n> From: Li Wei\n> Dear Jonas, goods will be ready week 46. 1x40HC, 210 ctns e-bikes, approx 6,800 kgs, 58 cbm. Pick up at our factory in Kunshan (Jiangsu). Pls note the e-bikes have lithium batteries inside, MSDS attached.\n> Best regards",
   "expected": {
     "customer_contains": "Jonas",
@@ -36,6 +37,10 @@
       [
         "delivery_deadline"
       ]
+    ],
+    "deadline_risk_one_of": [
+      "at_risk",
+      "impossible"
     ]
   },
   "notes": "Traps: forwarded thread (supplier Li Wei is not the customer); lithium batteries = dangerous goods, so never quote directly; Köln is inland, so the port of discharge must be a seaport; week 46 = 9-15 Nov 2026, so Christmas delivery is at risk (checked in slice 2); MSDS attachment can't be seen. Insurance: not requested under EXW. Action: 'ask' (request SDS + UN number from the customer) and 'escalate' (hand to a dangerous-goods specialist) are both acceptable; the costly mistake is 'quote'. A customer SOP like 'DG always to a human' would narrow this to escalate only."

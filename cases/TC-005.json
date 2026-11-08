@@ -2,6 +2,7 @@
   "id": "TC-005",
   "title": "Ceramic tiles, Qingdao to Antwerp, DDP (seller asking)",
   "trap": false,
+  "split": "dev",
   "email": "Subject: DDP quote Qingdao - Antwerp\n\nDear team, please quote 2x20GP ceramic tiles, 2 x 21,000 kg, cargo ready 5 Dec 2026 in Qingdao. DDP to our customer's warehouse in Antwerp (port area). We handle nothing on the buyer side, all-in please.\n\nBest,\nWang Lei\nShandong Ceramics Ltd.",
   "expected": {
     "customer_contains": "Wang",
@@ -22,7 +23,10 @@
     "action_one_of": [
       "quote"
     ],
-    "requested_info": []
+    "requested_info": [],
+    "deadline_risk_one_of": [
+      "none"
+    ]
   },
   "notes": "Easy case. DDP: seller pays all 5 legs including import duties. Reviewed by learner and Claude."
 }

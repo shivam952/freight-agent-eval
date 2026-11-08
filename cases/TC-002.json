@@ -2,6 +2,7 @@
   "id": "TC-002",
   "title": "Furniture, Ningbo to Hamburg, FOB",
   "trap": false,
+  "split": "dev",
   "email": "Subject: Quote request 1x20GP Ningbo - Hamburg\n\nHello, please quote for 1x20GP, wooden furniture, 4,200 kg, 26 cbm. Terms FOB Ningbo. Cargo ready 23 Nov 2026. Delivery to our warehouse in Hamburg-Billbrook.\n\nKind regards,\nAnna Schulz\nNordhaus Interiors GmbH, Hamburg",
   "expected": {
     "customer_contains": "Anna",
@@ -20,7 +21,10 @@
     "action_one_of": [
       "quote"
     ],
-    "requested_info": []
+    "requested_info": [],
+    "deadline_risk_one_of": [
+      "none"
+    ]
   },
   "notes": "Easy case. Hamburg-Billbrook is a district of Hamburg, so the port is Hamburg and leg 5 is a short local truck."
 }

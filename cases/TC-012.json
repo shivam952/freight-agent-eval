@@ -1,0 +1,34 @@
+{
+  "id": "TC-012",
+  "title": "Garden tools, Xiamen to Hamburg, FOB, German/English, no ready date (missing info)",
+  "trap": true,
+  "split": "holdout",
+  "email": "Subject: Anfrage / quote 3x40HC Xiamen\n\nHallo zusammen, bitte um Angebot: 3x40HC Gartengeräte (garden tools), ca. 3 x 12.000 kg, FOB Xiamen, Lieferung an unser Lager in Hamburg-Allermöhe. Ware ist bald fertig, details folgen.\n\nGrüße,\nTobias Krüger\nGrünwerk Handels GmbH",
+  "expected": {
+    "customer_contains": "Tobias",
+    "customer_role": "buyer",
+    "incoterm": "FOB",
+    "legs_quoted": [
+      3,
+      4,
+      5
+    ],
+    "insurance_included": false,
+    "port_of_discharge_one_of": [
+      "DEHAM"
+    ],
+    "dangerous_goods": false,
+    "action_one_of": [
+      "ask"
+    ],
+    "requested_info": [
+      [
+        "cargo_ready_date"
+      ]
+    ],
+    "deadline_risk_one_of": [
+      "none"
+    ]
+  },
+  "notes": "Trap: missing cargo-ready date ('Ware ist bald fertig' = goods ready soon), German mixed with English. 'Lieferung an unser Lager' = delivery to OUR warehouse -> importer -> buyer. Reviewed by learner and Claude."
+}

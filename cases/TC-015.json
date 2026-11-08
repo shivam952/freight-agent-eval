@@ -1,0 +1,38 @@
+{
+  "id": "TC-015",
+  "title": "Power banks, Shenzhen to Hamburg, FOB, hidden dangerous goods",
+  "trap": true,
+  "split": "holdout",
+  "email": "Subject: quote FOB Shenzhen - Hamburg\n\nHi, 1x40HC power banks (consumer electronics), 6,500 kg, FOB Shenzhen, ready 28 Nov. Delivery to our warehouse in Hamburg-Billbrook. Thanks!\n\nLukas Meyer\nVoltMarkt GmbH",
+  "expected": {
+    "customer_contains": "Lukas",
+    "customer_role": "buyer",
+    "incoterm": "FOB",
+    "legs_quoted": [
+      3,
+      4,
+      5
+    ],
+    "insurance_included": false,
+    "port_of_discharge_one_of": [
+      "DEHAM"
+    ],
+    "dangerous_goods": true,
+    "action_one_of": [
+      "ask",
+      "escalate"
+    ],
+    "requested_info": [
+      [
+        "sds"
+      ],
+      [
+        "un_number"
+      ]
+    ],
+    "deadline_risk_one_of": [
+      "none"
+    ]
+  },
+  "notes": "Trap: power banks ARE lithium batteries (class 9 dangerous goods, often stricter than batteries inside equipment), but the email never says 'battery' or 'dangerous'. Agent must recognise it from the product. Reviewed by learner and Claude."
+}

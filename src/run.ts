@@ -1,12 +1,13 @@
 // Runner: load every test case, send it through the plug to an agent,
 // check the answer sheet, print results and save the full run for later comparison.
 //
-// Usage: npm run eval -- [--agent v0|v1|v2] [--show-holdout] [model] [case-id ...]
+// Usage: npm run eval -- [--agent v0|v1|v2|v3] [--show-holdout] [model] [case-id ...]
 
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { makeReferenceAgent } from "./agent.js";
 import { makeReferenceAgentV1 } from "./agentV1.js";
 import { makeReferenceAgentV2 } from "./agentV2.js";
+import { makeReferenceAgentV3 } from "./agentV3.js";
 import { runChecks, type CheckResult } from "./checks.js";
 import type { AgentOutput, TestCase } from "./types.js";
 
@@ -25,7 +26,7 @@ const cases: TestCase[] = readdirSync("cases")
   .filter((tc: TestCase) => only.length === 0 || only.includes(tc.id));
 
 const agent =
-  agentVersion === "v2" ? makeReferenceAgentV2(model) : agentVersion === "v1" ? makeReferenceAgentV1(model) : makeReferenceAgent(model);
+  agentVersion === "v3" ? makeReferenceAgentV3(model) : agentVersion === "v2" ? makeReferenceAgentV2(model) : agentVersion === "v1" ? makeReferenceAgentV1(model) : makeReferenceAgent(model);
 type Result = {
   id: string; trap: boolean; split: string; output?: AgentOutput; checks: CheckResult[];
   rawChecks?: CheckResult[]; // the model's own answer, before guardrails (v2 only)

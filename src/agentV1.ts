@@ -9,7 +9,7 @@ import { incotermScope, type Role } from "./tools/incoterms.js";
 import type { Scope } from "./tools/incoterms.js";
 import type { Agent, AgentOutput } from "./types.js";
 
-const TOOL = {
+export const TOOL = {
   type: "function",
   function: {
     name: "incoterm_scope",
@@ -27,7 +27,7 @@ const TOOL = {
   },
 } as const;
 
-const TOOL_RULES = `
+export const TOOL_RULES = `
 
 You have a tool, incoterm_scope. Its result is authoritative:
 - legs_quoted MUST equal the tool's "legs", and insurance_included MUST equal its "insurance".
@@ -35,7 +35,7 @@ You have a tool, incoterm_scope. Its result is authoritative:
 - note "asker_owns_no_legs": quote nothing; action "ask"; port_of_discharge null; explain who arranges transport and ask for the counterparty's contact ("counterparty_contact").
 - note "named_place_needed": action "ask" for the named place before quoting.`;
 
-async function chat(body: object) {
+export async function chat(body: object) {
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {

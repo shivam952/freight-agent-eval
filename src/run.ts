@@ -18,8 +18,9 @@ const showHoldout = args.includes("--show-holdout");
 const agentFlag = args.indexOf("--agent");
 const agentVersion = agentFlag >= 0 ? args[agentFlag + 1] : "v0";
 const rest = args.filter((a, i) => a !== "--show-holdout" && i !== agentFlag && i !== agentFlag + 1);
-const model = rest[0] ?? "google/gemini-2.5-flash-lite";
-const only = rest.slice(1);
+// Case ids look like "TC-001"; anything else is the model id.
+const only = rest.filter((a) => /^TC-\d+$/i.test(a)).map((a) => a.toUpperCase());
+const model = rest.find((a) => !/^TC-\d+$/i.test(a)) ?? "google/gemini-2.5-flash-lite";
 
 const cases: TestCase[] = readdirSync("cases")
   .filter((f) => f.endsWith(".json"))

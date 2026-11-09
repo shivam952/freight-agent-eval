@@ -3,7 +3,7 @@
 //
 // Usage: npm run eval -- [--agent v0|v1|v2|v3|v4|v5] [--show-holdout] [model] [case-id ...]
 
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { makeReferenceAgent } from "./agent.js";
 import { makeReferenceAgentV1 } from "./agentV1.js";
 import { makeReferenceAgentV2 } from "./agentV2.js";
@@ -73,4 +73,5 @@ if (results.some((r) => r.output?.trace)) console.log(`Guardrails corrected the 
 mkdirSync("runs", { recursive: true });
 const file = `runs/${new Date().toISOString().replace(/[:.]/g, "-")}_${agentVersion}_${model.replace(/\//g, "_")}.json`;
 writeFileSync(file, JSON.stringify({ agent: agent.name, model, at: new Date().toISOString(), results }, null, 2));
-console.log(`Saved ${file}`);
+copyFileSync(file, "runs/latest.json"); // stable path for CI and the report
+console.log(`Saved ${file} (also runs/latest.json)`);

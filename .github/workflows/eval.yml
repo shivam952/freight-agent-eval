@@ -1,0 +1,57 @@
+name: Agent evaluation
+
+# Every push and pull request:
+#   1. unit tests for the tools, checks and guardrails (no API key needed)
+#   2. run the agent on all test cases and compare with the committed baseline;
+#      the job fails (blocking a merge) if any case regresses or an easy case fails.
+# Step 2 needs the repository secret OPENROUTER_API_KEY; without it, it is skipped.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run selftest
+
+  eval:
+    needs: unit
+    runs-on: ubuntu-latest
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Skip if no API key
+        id: key
+        run: |
+          if [ -z "$OPENROUTER_API_KEY" ]; then
+            echo "No OPENROUTER_API_KEY secret: skipping the agent evaluation." >> "$GITHUB_STEP_SUMMARY"
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run the agent on all test cases
+        if: steps.key.outputs.present == 'true'
+        run: npm run eval -- --agent v5 --show-holdout
+      - name: Compare with the baseline (gate)
+        if: steps.key.outputs.present == 'true'
+        run: npm run report -- baselines/v5.json runs/latest.json --out report.md --gate
+      - name: Publish the report
+        if: always() && steps.key.outputs.present == 'true'
+        run: cat report.md >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,2545 @@
+{
+  "agent": "reference-v5/google/gemini-2.5-flash-lite",
+  "model": "google/gemini-2.5-flash-lite",
+  "at": "2026-11-09T00:11:30.750Z",
+  "results": [
+    {
+      "id": "TC-001",
+      "trap": true,
+      "split": "dev",
+      "output": {
+        "customer": "Jonas Becker",
+        "customer_role": "buyer",
+        "incoterm": "EXW",
+        "legs_quoted": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "NLRTM",
+        "dangerous_goods": true,
+        "action": "ask",
+        "deadline_risk": "at_risk",
+        "requested_info": [
+          "sds",
+          "un_number",
+          "delivery_deadline"
+        ],
+        "reply_email": "Dear Jonas,\n\nThank you for your request. We will quote for the transport of your 1x40HC of e-bikes from Kunshan to your warehouse in Köln. We will assume the port of discharge to be Rotterdam (NLRTM).\n\nPlease note that your requested delivery deadline of before December 24th, 2026, is at risk due to the cargo ready date. We will highlight this in our quote.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Jonas Becker",
+            "customer_role": "buyer",
+            "incoterm": "EXW",
+            "legs_quoted": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "NLRTM",
+            "dangerous_goods": true,
+            "action": "quote",
+            "deadline_risk": "at_risk",
+            "requested_info": [],
+            "reply_email": "Dear Jonas,\n\nThank you for your request. We will quote for the transport of your 1x40HC of e-bikes from Kunshan to your warehouse in Köln. We will assume the port of discharge to be Rotterdam (NLRTM).\n\nPlease note that your requested delivery deadline of before December 24th, 2026, is at risk due to the cargo ready date. We will highlight this in our quote.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": [
+            "action quote -> ask (dangerous goods)",
+            "requested_info + delivery_deadline (deadline at risk)"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Jonas\"/\"Radhaus\"",
+          "got": "Jonas Becker"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM/BEANR/DEHAM/DEBRV",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "true",
+          "got": "true"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask/escalate",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of at_risk/impossible",
+          "got": "at_risk"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "sds AND un_number AND delivery_deadline",
+          "got": "sds,un_number,delivery_deadline"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Jonas\"/\"Radhaus\"",
+          "got": "Jonas Becker"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM/BEANR/DEHAM/DEBRV",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "true",
+          "got": "true"
+        },
+        {
+          "box": "action",
+          "pass": false,
+          "expected": "one of ask/escalate",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of at_risk/impossible",
+          "got": "at_risk"
+        },
+        {
+          "box": "requested_info",
+          "pass": false,
+          "expected": "sds AND un_number AND delivery_deadline",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-002",
+      "trap": false,
+      "split": "dev",
+      "output": {
+        "customer": "Anna Schulz, Nordhaus Interiors GmbH, Hamburg",
+        "customer_role": "buyer",
+        "incoterm": "FOB",
+        "legs_quoted": [
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "DEHAM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Anna Schulz,\n\nThank you for your quote request. We will quote for 1x20GP, wooden furniture, 4,200 kg, 26 cbm, FOB Ningbo, with delivery to your warehouse in Hamburg-Billbrook. We assume the port of discharge will be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nKind regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Anna Schulz, Nordhaus Interiors GmbH, Hamburg",
+            "customer_role": "buyer",
+            "incoterm": "FOB",
+            "legs_quoted": [
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "DEHAM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Anna Schulz,\n\nThank you for your quote request. We will quote for 1x20GP, wooden furniture, 4,200 kg, 26 cbm, FOB Ningbo, with delivery to your warehouse in Hamburg-Billbrook. We assume the port of discharge will be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nKind regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Anna\"/\"Nordhaus\"",
+          "got": "Anna Schulz, Nordhaus Interiors GmbH, Hamburg"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Anna\"/\"Nordhaus\"",
+          "got": "Anna Schulz, Nordhaus Interiors GmbH, Hamburg"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-003",
+      "trap": false,
+      "split": "dev",
+      "output": {
+        "customer": "Chen Hao",
+        "customer_role": "seller",
+        "incoterm": "CIF",
+        "legs_quoted": [
+          1,
+          2,
+          3
+        ],
+        "insurance_included": true,
+        "port_of_discharge": "NLRTM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Chen Hao,\n\nThank you for your RFQ. We will quote 2x40HC containers of LED lamps from Shenzhen to Rotterdam on CIF terms, including pickup, export customs clearance, sea freight, and insurance.\n\nWe have assumed the port of discharge to be Rotterdam (NLRTM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name]\n[Your Company]",
+        "trace": {
+          "raw": {
+            "customer": "Chen Hao",
+            "customer_role": "seller",
+            "incoterm": "CIF",
+            "legs_quoted": [
+              1,
+              2,
+              3
+            ],
+            "insurance_included": true,
+            "port_of_discharge": "NLRTM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Chen Hao,\n\nThank you for your RFQ. We will quote 2x40HC containers of LED lamps from Shenzhen to Rotterdam on CIF terms, including pickup, export customs clearance, sea freight, and insurance.\n\nWe have assumed the port of discharge to be Rotterdam (NLRTM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name]\n[Your Company]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Chen\"/\"Brightway\"",
+          "got": "Chen Hao"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "CIF",
+          "got": "CIF"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3",
+          "got": "1,2,3"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "true",
+          "got": "true"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Chen\"/\"Brightway\"",
+          "got": "Chen Hao"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "CIF",
+          "got": "CIF"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3",
+          "got": "1,2,3"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "true",
+          "got": "true"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-004",
+      "trap": false,
+      "split": "dev",
+      "output": {
+        "customer": "Saigon Outdoor Co.",
+        "customer_role": "seller",
+        "incoterm": "DAP",
+        "legs_quoted": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "DEHAM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Saigon Outdoor Co., \n\nThank you for your request. We will quote for 1x40HC of outdoor furniture from HCMC to Hamburg-Wilhelmsburg under DAP terms, covering pickup, export customs, sea freight, and delivery to your buyer's warehouse. We have assumed the port of discharge to be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Saigon Outdoor Co.",
+            "customer_role": "seller",
+            "incoterm": "DAP",
+            "legs_quoted": [
+              1,
+              2,
+              3,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "DEHAM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Saigon Outdoor Co., \n\nThank you for your request. We will quote for 1x40HC of outdoor furniture from HCMC to Hamburg-Wilhelmsburg under DAP terms, covering pickup, export customs, sea freight, and delivery to your buyer's warehouse. We have assumed the port of discharge to be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Tran\"/\"Saigon Outdoor\"",
+          "got": "Saigon Outdoor Co."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "DAP",
+          "got": "DAP"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,5",
+          "got": "1,2,3,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Tran\"/\"Saigon Outdoor\"",
+          "got": "Saigon Outdoor Co."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "DAP",
+          "got": "DAP"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,5",
+          "got": "1,2,3,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-005",
+      "trap": false,
+      "split": "dev",
+      "output": {
+        "customer": "Wang Lei",
+        "customer_role": "seller",
+        "incoterm": "DDP",
+        "legs_quoted": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "BEANR",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Wang Lei,\n\nThank you for your DDP quote request for ceramic tiles from Qingdao to Antwerp. We will quote on a DDP basis, covering all legs of the journey, including pickup in Qingdao, export customs, sea freight to Antwerp (BEANR), import customs and duties, and final delivery to your customer's warehouse in Antwerp.\n\nOur quote will not include marine insurance, as per the DDP Incoterm scope for a seller. Please let us know if you require a separate quote for insurance.\n\nWe have noted the cargo ready date of December 5, 2026. Based on standard transit times, there is no immediate deadline risk.\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Wang Lei",
+            "customer_role": "seller",
+            "incoterm": "DDP",
+            "legs_quoted": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "BEANR",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Wang Lei,\n\nThank you for your DDP quote request for ceramic tiles from Qingdao to Antwerp. We will quote on a DDP basis, covering all legs of the journey, including pickup in Qingdao, export customs, sea freight to Antwerp (BEANR), import customs and duties, and final delivery to your customer's warehouse in Antwerp.\n\nOur quote will not include marine insurance, as per the DDP Incoterm scope for a seller. Please let us know if you require a separate quote for insurance.\n\nWe have noted the cargo ready date of December 5, 2026. Based on standard transit times, there is no immediate deadline risk.\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Wang\"/\"Shandong Ceramics\"",
+          "got": "Wang Lei"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "DDP",
+          "got": "DDP"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of BEANR",
+          "got": "BEANR"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Wang\"/\"Shandong Ceramics\"",
+          "got": "Wang Lei"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "DDP",
+          "got": "DDP"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of BEANR",
+          "got": "BEANR"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-006",
+      "trap": true,
+      "split": "dev",
+      "output": {
+        "customer": "Pieter de Vries Huishoud B.V.",
+        "customer_role": "buyer",
+        "incoterm": "FOB",
+        "legs_quoted": [
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "NLRTM",
+        "dangerous_goods": false,
+        "action": "ask",
+        "deadline_risk": "none",
+        "requested_info": [
+          "weight",
+          "volume",
+          "dimensions",
+          "piece_count",
+          "cargo_ready_date",
+          "delivery_deadline",
+          "commodity_details"
+        ],
+        "reply_email": "Dear Pieter,\n\nThank you for your request. We can quote FOB Shanghai to Rotterdam for your pallets of kitchen appliances, with delivery to Waalhaven. We will quote for sea freight, import customs clearance and delivery to your warehouse.\n\nTo provide you with an accurate quote, please provide the following information:\n\n*   Weight of the shipment\n*   Volume of the shipment\n*   Dimensions of the shipment\n*   Number of pieces\n*   Cargo ready date\n*   Desired delivery deadline\n*   Detailed commodity description\n\nWe look forward to hearing from you.\n\nBest regards,\n\n[Your Name]\n[Your Company]",
+        "trace": {
+          "raw": {
+            "customer": "Pieter de Vries Huishoud B.V.",
+            "customer_role": "buyer",
+            "incoterm": "FOB",
+            "legs_quoted": [
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "NLRTM",
+            "dangerous_goods": false,
+            "action": "ask",
+            "deadline_risk": "none",
+            "requested_info": [
+              "weight",
+              "volume",
+              "dimensions",
+              "piece_count",
+              "cargo_ready_date",
+              "delivery_deadline",
+              "commodity_details"
+            ],
+            "reply_email": "Dear Pieter,\n\nThank you for your request. We can quote FOB Shanghai to Rotterdam for your pallets of kitchen appliances, with delivery to Waalhaven. We will quote for sea freight, import customs clearance and delivery to your warehouse.\n\nTo provide you with an accurate quote, please provide the following information:\n\n*   Weight of the shipment\n*   Volume of the shipment\n*   Dimensions of the shipment\n*   Number of pieces\n*   Cargo ready date\n*   Desired delivery deadline\n*   Detailed commodity description\n\nWe look forward to hearing from you.\n\nBest regards,\n\n[Your Name]\n[Your Company]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Pieter\"/\"de Vries\"",
+          "got": "Pieter de Vries Huishoud B.V."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none/at_risk",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "weight AND volume|dimensions AND piece_count",
+          "got": "weight,volume,dimensions,piece_count,cargo_ready_date,delivery_deadline,commodity_details"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Pieter\"/\"de Vries\"",
+          "got": "Pieter de Vries Huishoud B.V."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none/at_risk",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "weight AND volume|dimensions AND piece_count",
+          "got": "weight,volume,dimensions,piece_count,cargo_ready_date,delivery_deadline,commodity_details"
+        }
+      ]
+    },
+    {
+      "id": "TC-007",
+      "trap": true,
+      "split": "dev",
+      "output": {
+        "customer": "Katrin Vogel, Spielwelt GmbH",
+        "customer_role": "buyer",
+        "incoterm": "UNKNOWN",
+        "legs_quoted": [],
+        "insurance_included": false,
+        "port_of_discharge": "DEHAM",
+        "dangerous_goods": false,
+        "action": "ask",
+        "deadline_risk": "none",
+        "requested_info": [
+          "incoterm"
+        ],
+        "reply_email": "Dear Katrin Vogel,\n\nThank you for your inquiry. To provide you with an accurate quote, please clarify the Incoterm applicable to this shipment. This will help us understand the scope of services to be included.\n\nOnce we have this information, we will be able to proceed with your request.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Katrin Vogel, Spielwelt GmbH",
+            "customer_role": "buyer",
+            "incoterm": "UNKNOWN",
+            "legs_quoted": [],
+            "insurance_included": false,
+            "port_of_discharge": null,
+            "dangerous_goods": false,
+            "action": "ask",
+            "deadline_risk": "none",
+            "requested_info": [
+              "incoterm"
+            ],
+            "reply_email": "Dear Katrin Vogel,\n\nThank you for your inquiry. To provide you with an accurate quote, please clarify the Incoterm applicable to this shipment. This will help us understand the scope of services to be included.\n\nOnce we have this information, we will be able to proceed with your request.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": [
+            "port none -> DEHAM (seaport tool: port_city)"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Katrin\"/\"Spielwelt\"",
+          "got": "Katrin Vogel, Spielwelt GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "UNKNOWN",
+          "got": "UNKNOWN"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "",
+          "got": ""
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "incoterm",
+          "got": "incoterm"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Katrin\"/\"Spielwelt\"",
+          "got": "Katrin Vogel, Spielwelt GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "UNKNOWN",
+          "got": "UNKNOWN"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "",
+          "got": ""
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": false,
+          "expected": "one of DEHAM",
+          "got": "null"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "incoterm",
+          "got": "incoterm"
+        }
+      ]
+    },
+    {
+      "id": "TC-008",
+      "trap": true,
+      "split": "dev",
+      "output": {
+        "customer": "Li Na, Ningbo Comfort Seating Co.",
+        "customer_role": "seller",
+        "incoterm": "EXW",
+        "legs_quoted": [],
+        "insurance_included": false,
+        "port_of_discharge": null,
+        "dangerous_goods": false,
+        "action": "ask",
+        "deadline_risk": "none",
+        "requested_info": [
+          "counterparty_contact"
+        ],
+        "reply_email": "Dear Li Na,\n\nThank you for your inquiry. As you are quoting EXW, you do not arrange the transport. Could you please provide us with the contact details of the party who will be arranging the transport from your factory in Ningbo? This will allow us to coordinate with them.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Li Na, Ningbo Comfort Seating Co.",
+            "customer_role": "seller",
+            "incoterm": "EXW",
+            "legs_quoted": [],
+            "insurance_included": false,
+            "port_of_discharge": null,
+            "dangerous_goods": false,
+            "action": "ask",
+            "deadline_risk": "none",
+            "requested_info": [
+              "counterparty_contact"
+            ],
+            "reply_email": "Dear Li Na,\n\nThank you for your inquiry. As you are quoting EXW, you do not arrange the transport. Could you please provide us with the contact details of the party who will be arranging the transport from your factory in Ningbo? This will allow us to coordinate with them.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Li Na\"/\"Ningbo Comfort\"",
+          "got": "Li Na, Ningbo Comfort Seating Co."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "",
+          "got": ""
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NONE",
+          "got": "null"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "counterparty_contact",
+          "got": "counterparty_contact"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Li Na\"/\"Ningbo Comfort\"",
+          "got": "Li Na, Ningbo Comfort Seating Co."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "seller",
+          "got": "seller"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "",
+          "got": ""
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NONE",
+          "got": "null"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "counterparty_contact",
+          "got": "counterparty_contact"
+        }
+      ]
+    },
+    {
+      "id": "TC-009",
+      "trap": true,
+      "split": "holdout",
+      "output": {
+        "customer": "Sanne Bakker",
+        "customer_role": "buyer",
+        "incoterm": "CIF",
+        "legs_quoted": [
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "NLRTM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Sanne Bakker,\n\nThank you for your email. We can quote you for the import customs clearance and delivery from Rotterdam (NLRTM) to your DC in Tilburg.\n\nWe have assumed Rotterdam as the port of discharge. Please let us know if this is incorrect.\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name]\n[Your Company]",
+        "trace": {
+          "raw": {
+            "customer": "Sanne Bakker",
+            "customer_role": "buyer",
+            "incoterm": "CIF",
+            "legs_quoted": [
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "NLRTM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Sanne Bakker,\n\nThank you for your email. We can quote you for the import customs clearance and delivery from Rotterdam (NLRTM) to your DC in Tilburg.\n\nWe have assumed Rotterdam as the port of discharge. Please let us know if this is incorrect.\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name]\n[Your Company]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Sanne\"/\"Bakker\"",
+          "got": "Sanne Bakker"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "CIF",
+          "got": "CIF"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "4,5",
+          "got": "4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Sanne\"/\"Bakker\"",
+          "got": "Sanne Bakker"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "CIF",
+          "got": "CIF"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "4,5",
+          "got": "4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-010",
+      "trap": true,
+      "split": "dev",
+      "output": {
+        "customer": "Markus Hoffmann, Hoffmann Antriebstechnik GmbH",
+        "customer_role": "buyer",
+        "incoterm": "FOB",
+        "legs_quoted": [
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "NLRTM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Markus Hoffmann,\n\nThank you for your inquiry. We will quote door delivery from Shanghai to Duisburg, assuming discharge at Port of Rotterdam (NLRTM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Markus Hoffmann, Hoffmann Antriebstechnik GmbH",
+            "customer_role": "buyer",
+            "incoterm": "FOB",
+            "legs_quoted": [
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "NLRTM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Markus Hoffmann,\n\nThank you for your inquiry. We will quote door delivery from Shanghai to Duisburg, assuming discharge at Port of Rotterdam (NLRTM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Markus\"/\"Hoffmann\"",
+          "got": "Markus Hoffmann, Hoffmann Antriebstechnik GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM/BEANR",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Markus\"/\"Hoffmann\"",
+          "got": "Markus Hoffmann, Hoffmann Antriebstechnik GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM/BEANR",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-011",
+      "trap": true,
+      "split": "holdout",
+      "output": {
+        "customer": "Elena Wolff, Wolff Moto Teile GmbH",
+        "customer_role": "buyer",
+        "incoterm": "EXW",
+        "legs_quoted": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "DEHAM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Elena Wolff,\n\nThank you for your request. We will quote you for the transport of 2x40HC motorcycle spare parts from Chongqing to Hamburg, based on EXW terms, with delivery to your warehouse in Hamburg-Harburg. We assume the port of discharge will be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Elena Wolff, Wolff Moto Teile GmbH",
+            "customer_role": "buyer",
+            "incoterm": "EXW",
+            "legs_quoted": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "DEHAM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Elena Wolff,\n\nThank you for your request. We will quote you for the transport of 2x40HC motorcycle spare parts from Chongqing to Hamburg, based on EXW terms, with delivery to your warehouse in Hamburg-Harburg. We assume the port of discharge will be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Elena\"/\"Wolff\"",
+          "got": "Elena Wolff, Wolff Moto Teile GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Elena\"/\"Wolff\"",
+          "got": "Elena Wolff, Wolff Moto Teile GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-012",
+      "trap": true,
+      "split": "holdout",
+      "output": {
+        "customer": "Tobias Krüger, Grünwerk Handels GmbH",
+        "customer_role": "buyer",
+        "incoterm": "FOB",
+        "legs_quoted": [
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "DEHAM",
+        "dangerous_goods": false,
+        "action": "ask",
+        "deadline_risk": "none",
+        "requested_info": [
+          "cargo_ready_date",
+          "delivery_deadline",
+          "commodity_details"
+        ],
+        "reply_email": "Sehr geehrter Herr Krüger,\n\nvielen Dank für Ihre Anfrage. Gerne erstellen wir Ihnen ein Angebot für den Transport von 3x40HC Gartengeräten von Xiamen nach Hamburg.\n\nWir gehen von einer Verschiffung über den Hafen Hamburg (DEHAM) aus.\n\nBitte teilen Sie uns noch das genaue Lade-/Verschiffungsdatum (cargo_ready_date) und die gewünschte Lieferfrist (delivery_deadline) mit, damit wir die Transitzeiten prüfen können. Bitte geben Sie uns auch weitere Details zur Ware (commodity_details).\n\nMit freundlichen Grüßen,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Tobias Krüger, Grünwerk Handels GmbH",
+            "customer_role": "buyer",
+            "incoterm": "FOB",
+            "legs_quoted": [
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "DEHAM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [
+              "cargo_ready_date",
+              "delivery_deadline",
+              "commodity_details"
+            ],
+            "reply_email": "Sehr geehrter Herr Krüger,\n\nvielen Dank für Ihre Anfrage. Gerne erstellen wir Ihnen ein Angebot für den Transport von 3x40HC Gartengeräten von Xiamen nach Hamburg.\n\nWir gehen von einer Verschiffung über den Hafen Hamburg (DEHAM) aus.\n\nBitte teilen Sie uns noch das genaue Lade-/Verschiffungsdatum (cargo_ready_date) und die gewünschte Lieferfrist (delivery_deadline) mit, damit wir die Transitzeiten prüfen können. Bitte geben Sie uns auch weitere Details zur Ware (commodity_details).\n\nMit freundlichen Grüßen,\n[Your Name/Company Name]"
+          },
+          "interventions": [
+            "action quote -> ask (information requested)"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Tobias\"/\"Grünwerk\"",
+          "got": "Tobias Krüger, Grünwerk Handels GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "cargo_ready_date",
+          "got": "cargo_ready_date,delivery_deadline,commodity_details"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Tobias\"/\"Grünwerk\"",
+          "got": "Tobias Krüger, Grünwerk Handels GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": false,
+          "expected": "one of ask",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "cargo_ready_date",
+          "got": "cargo_ready_date,delivery_deadline,commodity_details"
+        }
+      ]
+    },
+    {
+      "id": "TC-013",
+      "trap": true,
+      "split": "holdout",
+      "output": {
+        "customer": "Mark Jansen, Jansen Sport B.V.",
+        "customer_role": "buyer",
+        "incoterm": "FOB",
+        "legs_quoted": [
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "NLRTM",
+        "dangerous_goods": false,
+        "action": "ask",
+        "deadline_risk": "impossible",
+        "requested_info": [
+          "delivery_deadline"
+        ],
+        "reply_email": "Dear Mark Jansen,\n\nThank you for your request. We will quote FOB Shanghai for 1x40HC sports shoes, ready 20 Nov, with discharge at Rotterdam. \n\nWe must inform you that the delivery deadline of 1 Dec to Venlo is impossible to meet with standard sea freight transit times. The estimated arrival at Venlo would be between 27 Dec and 14 Jan. \n\nWe will send the quote shortly.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Mark Jansen, Jansen Sport B.V.",
+            "customer_role": "buyer",
+            "incoterm": "FOB",
+            "legs_quoted": [
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "NLRTM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "impossible",
+            "requested_info": [],
+            "reply_email": "Dear Mark Jansen,\n\nThank you for your request. We will quote FOB Shanghai for 1x40HC sports shoes, ready 20 Nov, with discharge at Rotterdam. \n\nWe must inform you that the delivery deadline of 1 Dec to Venlo is impossible to meet with standard sea freight transit times. The estimated arrival at Venlo would be between 27 Dec and 14 Jan. \n\nWe will send the quote shortly.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": [
+            "action quote -> ask (impossible deadline)",
+            "requested_info + delivery_deadline (deadline at risk)"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Mark\"/\"Jansen\"",
+          "got": "Mark Jansen, Jansen Sport B.V."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM/BEANR",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of ask",
+          "got": "ask"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of impossible",
+          "got": "impossible"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "delivery_deadline",
+          "got": "delivery_deadline"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Mark\"/\"Jansen\"",
+          "got": "Mark Jansen, Jansen Sport B.V."
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of NLRTM/BEANR",
+          "got": "NLRTM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": false,
+          "expected": "one of ask",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of impossible",
+          "got": "impossible"
+        },
+        {
+          "box": "requested_info",
+          "pass": false,
+          "expected": "delivery_deadline",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-014",
+      "trap": true,
+      "split": "dev",
+      "output": {
+        "customer": "Julia Brandt",
+        "customer_role": "buyer",
+        "incoterm": "EXW",
+        "legs_quoted": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "DEHAM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Julia Brandt,\n\nThank you for your request. We will quote you for the 1x40HC of ceramic kitchenware from Foshan to Hamburg on EXW terms, covering all legs of the journey including pickup, export and import customs, sea freight, and final delivery to your Hamburg store.\n\nOur quote will be based on the cargo being ready in week 49 and your delivery deadline at the end of February. We have assumed the port of discharge to be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Julia Brandt",
+            "customer_role": "buyer",
+            "incoterm": "EXW",
+            "legs_quoted": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "DEHAM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Julia Brandt,\n\nThank you for your request. We will quote you for the 1x40HC of ceramic kitchenware from Foshan to Hamburg on EXW terms, covering all legs of the journey including pickup, export and import customs, sea freight, and final delivery to your Hamburg store.\n\nOur quote will be based on the cargo being ready in week 49 and your delivery deadline at the end of February. We have assumed the port of discharge to be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Julia\"/\"Brandt\"",
+          "got": "Julia Brandt"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Julia\"/\"Brandt\"",
+          "got": "Julia Brandt"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "EXW",
+          "got": "EXW"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "1,2,3,4,5",
+          "got": "1,2,3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": true,
+          "expected": "one of quote",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": true,
+          "expected": "nothing",
+          "got": "nothing"
+        }
+      ]
+    },
+    {
+      "id": "TC-015",
+      "trap": true,
+      "split": "holdout",
+      "output": {
+        "customer": "Lukas Meyer, VoltMarkt GmbH",
+        "customer_role": "buyer",
+        "incoterm": "FOB",
+        "legs_quoted": [
+          3,
+          4,
+          5
+        ],
+        "insurance_included": false,
+        "port_of_discharge": "DEHAM",
+        "dangerous_goods": false,
+        "action": "quote",
+        "deadline_risk": "none",
+        "requested_info": [],
+        "reply_email": "Dear Lukas Meyer,\n\nThank you for your email. We will quote you for FOB Shenzhen to Hamburg, covering sea freight, import customs and duties, and delivery to your warehouse in Hamburg-Billbrook.\n\nWe have assumed the port of discharge to be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]",
+        "trace": {
+          "raw": {
+            "customer": "Lukas Meyer, VoltMarkt GmbH",
+            "customer_role": "buyer",
+            "incoterm": "FOB",
+            "legs_quoted": [
+              3,
+              4,
+              5
+            ],
+            "insurance_included": false,
+            "port_of_discharge": "DEHAM",
+            "dangerous_goods": false,
+            "action": "quote",
+            "deadline_risk": "none",
+            "requested_info": [],
+            "reply_email": "Dear Lukas Meyer,\n\nThank you for your email. We will quote you for FOB Shenzhen to Hamburg, covering sea freight, import customs and duties, and delivery to your warehouse in Hamburg-Billbrook.\n\nWe have assumed the port of discharge to be Hamburg (DEHAM).\n\nWe will send you the quote shortly.\n\nBest regards,\n[Your Name/Company Name]"
+          },
+          "interventions": []
+        }
+      },
+      "checks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Lukas\"/\"VoltMarkt\"",
+          "got": "Lukas Meyer, VoltMarkt GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": false,
+          "expected": "true",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": false,
+          "expected": "one of ask/escalate",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": false,
+          "expected": "sds AND un_number",
+          "got": "nothing"
+        }
+      ],
+      "rawChecks": [
+        {
+          "box": "customer",
+          "pass": true,
+          "expected": "contains one of \"Lukas\"/\"VoltMarkt\"",
+          "got": "Lukas Meyer, VoltMarkt GmbH"
+        },
+        {
+          "box": "customer_role",
+          "pass": true,
+          "expected": "buyer",
+          "got": "buyer"
+        },
+        {
+          "box": "incoterm",
+          "pass": true,
+          "expected": "FOB",
+          "got": "FOB"
+        },
+        {
+          "box": "legs_quoted",
+          "pass": true,
+          "expected": "3,4,5",
+          "got": "3,4,5"
+        },
+        {
+          "box": "insurance_included",
+          "pass": true,
+          "expected": "false",
+          "got": "false"
+        },
+        {
+          "box": "port_of_discharge",
+          "pass": true,
+          "expected": "one of DEHAM",
+          "got": "DEHAM"
+        },
+        {
+          "box": "dangerous_goods",
+          "pass": false,
+          "expected": "true",
+          "got": "false"
+        },
+        {
+          "box": "action",
+          "pass": false,
+          "expected": "one of ask/escalate",
+          "got": "quote"
+        },
+        {
+          "box": "deadline_risk",
+          "pass": true,
+          "expected": "one of none",
+          "got": "none"
+        },
+        {
+          "box": "requested_info",
+          "pass": false,
+          "expected": "sds AND un_number",
+          "got": "nothing"
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 // fills in the answer sheet. Deliberately simple: it's the exam candidate, not the product.
 
 import { REQUESTED_INFO, type Agent, type AgentOutput } from "./types.js";
+import { MAX_TOKENS, recordUsage } from "./usage.js";
 
 export const SYSTEM_PROMPT = `You are an operations assistant at an ocean freight forwarder.
 You receive one customer email (it may be a forwarded thread) and must decide how to handle it.
@@ -55,6 +56,8 @@ export function makeReferenceAgent(model: string, version = "v0"): Agent {
         body: JSON.stringify({
           model,
           temperature: 0,
+          usage: { include: true },
+          max_tokens: MAX_TOKENS,
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: email },
@@ -66,7 +69,11 @@ export function makeReferenceAgent(model: string, version = "v0"): Agent {
         }),
       });
       if (!res.ok) throw new Error(`OpenRouter ${res.status}: ${await res.text()}`);
-      const data = (await res.json()) as { choices: { message: { content: string } }[] };
+      const data = (await res.json()) as {
+        choices: { message: { content: string } }[];
+        usage?: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
+      };
+      recordUsage(data.usage);
       return JSON.parse(data.choices[0].message.content) as AgentOutput;
     },
   };

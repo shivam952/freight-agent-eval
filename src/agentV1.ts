@@ -8,6 +8,7 @@ import { SCHEMA, SYSTEM_PROMPT } from "./agent.js";
 import { incotermScope, type Role } from "./tools/incoterms.js";
 import type { Scope } from "./tools/incoterms.js";
 import type { Agent, AgentOutput } from "./types.js";
+import { MAX_TOKENS, recordUsage } from "./usage.js";
 
 export const TOOL = {
   type: "function",
@@ -42,10 +43,12 @@ export async function chat(body: object) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY ?? "proxy-injected"}`,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ max_tokens: MAX_TOKENS, ...body, usage: { include: true } }),
   });
   if (!res.ok) throw new Error(`OpenRouter ${res.status}: ${await res.text()}`);
-  return (await res.json()) as {
+  const data = await res.json();
+  recordUsage(data.usage);
+  return data as {
     choices: { message: { content: string | null; tool_calls?: { id: string; function: { name: string; arguments: string } }[] } }[];
   };
 }

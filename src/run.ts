@@ -12,6 +12,7 @@ import { makeReferenceAgentV4 } from "./agentV4.js";
 import { makeReferenceAgentV5 } from "./agentV5.js";
 import { runChecks, type CheckResult } from "./checks.js";
 import type { AgentOutput, TestCase } from "./types.js";
+import { getUsage, resetUsage, type Usage } from "./usage.js";
 
 const args = process.argv.slice(2);
 const showHoldout = args.includes("--show-holdout");
@@ -33,17 +34,21 @@ const agent =
 type Result = {
   id: string; trap: boolean; split: string; output?: AgentOutput; checks: CheckResult[];
   rawChecks?: CheckResult[]; // the model's own answer, before guardrails (v2 only)
+  usage?: Usage; // tokens and cost for this case
+  ms?: number; // wall-clock time for this case
   error?: string;
 };
 const results: Result[] = [];
 
 console.log(`Agent: ${agent.name}\n`);
 for (const tc of cases) {
+  resetUsage();
+  const started = Date.now();
   try {
     const output = await agent.run(tc.email);
     const checks = runChecks(output, tc.expected);
     const rawChecks = output.trace ? runChecks(output.trace.raw, tc.expected) : undefined;
-    results.push({ id: tc.id, trap: tc.trap, split: tc.split, output, checks, rawChecks });
+    results.push({ id: tc.id, trap: tc.trap, split: tc.split, output, checks, rawChecks, usage: getUsage(), ms: Date.now() - started });
     if (tc.split === "holdout" && !showHoldout) continue; // details hidden: see the summary line
     const failed = checks.filter((c) => !c.pass);
     const label = failed.length === 0 ? "PASS" : `FAIL (${failed.length}/${checks.length} checks)`;
@@ -67,6 +72,9 @@ const summary = (split: string) => {
 const easy = results.filter((r) => !r.trap);
 console.log(`\nDev: ${summary("dev")} cases passed (easy: ${easy.filter(ok).length}/${easy.length})`);
 console.log(`Holdout: ${summary("holdout")} cases passed${showHoldout ? "" : " (details hidden; --show-holdout to reveal)"}`);
+const cost = results.reduce((s, r) => s + (r.usage?.cost_usd ?? 0), 0);
+const avgMs = results.reduce((s, r) => s + (r.ms ?? 0), 0) / Math.max(results.length, 1);
+console.log(`Cost: $${cost.toFixed(4)} total, $${((cost / Math.max(results.length, 1)) * 1000).toFixed(2)} per 1,000 emails; ${(avgMs / 1000).toFixed(1)} s per email`);
 const corrected = results.filter((r) => (r.output?.trace?.interventions.length ?? 0) > 0).length;
 if (results.some((r) => r.output?.trace)) console.log(`Guardrails corrected the model in ${corrected}/${results.length} cases`);
 

@@ -82,10 +82,21 @@ export function makeReferenceAgentV5(model: string): Agent {
       const system = { role: "system", content: SYSTEM_PROMPT + TOOL_RULES + RULES_V5 };
       const user = { role: "user", content: email };
       const forced = async (tool: typeof TOOL | typeof SEAPORT_TOOL | typeof DATE_TOOL) => {
-        const r = await chat({
-          model, temperature: 0, messages: [system, user], tools: [tool],
-          tool_choice: { type: "function", function: { name: tool.function.name } },
-        });
+        let r;
+        try {
+          r = await chat({
+            model, temperature: 0, messages: [system, user], tools: [tool],
+            tool_choice: { type: "function", function: { name: tool.function.name } },
+          });
+        } catch (e) {
+          // Some models (e.g. Claude Sonnet 5.5) refuse forced tool calls: let the model
+          // choose, with an explicit instruction to call this one tool.
+          if (!/tool_choice/.test(String(e))) throw e;
+          r = await chat({
+            model, temperature: 0, tools: [tool], tool_choice: "auto",
+            messages: [system, user, { role: "system", content: `Call the ${tool.function.name} tool now.` }],
+          });
+        }
         const call = r.choices[0].message.tool_calls?.[0];
         if (!call) throw new Error(`model did not call ${tool.function.name}`);
         return JSON.parse(call.function.arguments);

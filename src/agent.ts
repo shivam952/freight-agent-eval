@@ -2,7 +2,7 @@
 // fills in the answer sheet. Deliberately simple: it's the exam candidate, not the product.
 
 import { REQUESTED_INFO, type Agent, type AgentOutput } from "./types.js";
-import { MAX_TOKENS, recordUsage } from "./usage.js";
+import { MAX_TOKENS, postWithRetry, recordUsage } from "./usage.js";
 
 export const SYSTEM_PROMPT = `You are an operations assistant at an ocean freight forwarder.
 You receive one customer email (it may be a forwarded thread) and must decide how to handle it.
@@ -46,7 +46,7 @@ export function makeReferenceAgent(model: string, version = "v0"): Agent {
   return {
     name: `reference-${version}/${model}`,
     async run(email: string): Promise<AgentOutput> {
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      const res = await postWithRetry("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

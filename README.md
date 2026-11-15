@@ -14,6 +14,7 @@ AI agents that handle forwarders' inboxes change constantly: new prompts, new mo
 | v3 | + seaport lookup | 8/10 | **3/4** (regression) | 2/5 |
 | v4 | + grounded role step | 9/10 | 4/4 | 2/5 |
 | v5 | + date/transit tool | **10/10** | **4/4** | **4/5** |
+| v6 | + dangerous-goods check by a stronger model (Haiku 4.5) | **10/10** | **4/4** | **5/5** (holdout already spent) |
 
 *Model: `google/gemini-2.5-flash-lite` via OpenRouter, temperature 0, 3 runs per version (identical results unless noted). Illustrative € at risk across all 15 cases: €17,550 (v0) → €5,500 (v5). See [`reports/v0-vs-v5.md`](reports/v0-vs-v5.md).*
 
@@ -35,7 +36,7 @@ Things the harness caught along the way:
 | Claude Sonnet 5.5 + tools (v5) | 12 | **€700** | $27.94 |
 | **Gemini 2.5 Flash-Lite + tools (v5)** | **14** | €5,500 | **$0.51** |
 
-Tools beat model size on pass rate and cost — but **pass rate and business risk rank differently**: the cheap model's single miss is the most expensive one (power banks quoted as normal cargo), which every strong model caught. Full table, GPT-5 mini and Gemini 3.1 Pro, findings and caveats: [`reports/model-comparison.md`](reports/model-comparison.md).
+Tools beat model size on pass rate and cost — but **pass rate and business risk rank differently**: the cheap model's single miss is the most expensive one (power banks quoted as normal cargo), which every strong model caught. **Routing fixes it:** keep the cheap model + tools for everything and send only "is this cargo dangerous goods?" to Claude Haiku 4.5 (v6): **15/15, €0 at risk, $1.20 per 1,000 emails**, no false alarms. Full table, GPT-5 mini and Gemini 3.1 Pro, findings and caveats: [`reports/model-comparison.md`](reports/model-comparison.md).
 
 ## How it works
 
@@ -44,7 +45,7 @@ Tools beat model size on pass rate and cost — but **pass rate and business ris
 | Test cases | [`cases/`](cases/) | 15 hand-reviewed emails (4 easy, 11 traps) with expected answers and the reasoning behind them. 5 were held out while building the agent. |
 | The plug | [`src/types.ts`](src/types.ts) | A fixed answer sheet every agent must return: customer, role, Incoterm, legs quoted, insurance, port of discharge, dangerous goods, action, deadline risk, requested info, reply. Any agent that returns it can be tested. |
 | Checks | [`src/checks.ts`](src/checks.ts) | Deterministic comparisons with the expected answer — no LLM grading. Self-tested: a correct answer passes, a known-wrong one fails exactly one check. |
-| Reference agent | [`src/agentV5.ts`](src/agentV5.ts) | Deliberately simple exam candidate: a cheap model plus three deterministic tools (Incoterm rules, seaport lookup, transit/deadline arithmetic), a grounded role step and guardrails. Earlier versions are kept so their results stay reproducible. |
+| Reference agent | [`src/agentV6.ts`](src/agentV6.ts) | Deliberately simple exam candidate: a cheap model plus three deterministic tools (Incoterm rules, seaport lookup, transit/deadline arithmetic), a grounded role step, guardrails, and one dangerous-goods check routed to a stronger model. Earlier versions are kept so their results stay reproducible. |
 | Report & gate | [`src/report.ts`](src/report.ts) | Compares two runs case by case: regressions, fixes, guardrail interventions, € at risk. `--gate` fails if anything regresses or an easy case fails. |
 | CI | [`.github/workflows/eval.yml`](.github/workflows/eval.yml) | Unit tests on every push and pull request; the full evaluation + gate when an `OPENROUTER_API_KEY` secret is set. |
 
@@ -63,11 +64,11 @@ Tools beat model size on pass rate and cost — but **pass rate and business ris
 ```bash
 npm install
 npm test                                   # unit tests: tools, checks, guardrails
-OPENROUTER_API_KEY=... npm run eval -- --agent v5            # run the agent (holdout details hidden)
-npm run report -- baselines/v5.json runs/latest.json --gate  # compare with the baseline
+OPENROUTER_API_KEY=... npm run eval -- --agent v6            # run the agent (holdout details hidden)
+npm run report -- baselines/v6.json runs/latest.json --gate  # compare with the baseline
 ```
 
-`--agent v0` … `v5` selects a version; add a model id (e.g. `anthropic/claude-haiku-4.5`) or case ids (`TC-003`) to narrow a run.
+`--agent v0` … `v6` selects a version; add a model id (e.g. `anthropic/claude-haiku-4.5`) or case ids (`TC-003`) to narrow a run.
 
 ## Limitations (honest ones)
 
@@ -80,6 +81,5 @@ npm run report -- baselines/v5.json runs/latest.json --gate  # compare with the 
 
 ## Next
 
-- Route only the risky judgment (dangerous goods) to a strong model, and measure whether it closes the €5,000 gap at a fraction of the cost.
 - Grow to ~40 cases with generated variations of each trap, and a fresh held-out set.
 - A narrow LLM judge (evaluated against hand labels) for what can't be checked deterministically, such as whether the reply text matches the answer sheet.

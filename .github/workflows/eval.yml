@@ -48,10 +48,10 @@ jobs:
           fi
       - name: Run the agent on all test cases
         if: steps.key.outputs.present == 'true'
-        run: npm run eval -- --agent v5 --show-holdout
+        run: npm run eval -- --agent v6 --show-holdout
       - name: Compare with the baseline (gate)
         if: steps.key.outputs.present == 'true'
-        run: npm run report -- baselines/v5.json runs/latest.json --out report.md --gate
+        run: npm run report -- baselines/v6.json runs/latest.json --out report.md --gate
       - name: Publish the report
         if: always() && steps.key.outputs.present == 'true'
         run: cat report.md >> "$GITHUB_STEP_SUMMARY"

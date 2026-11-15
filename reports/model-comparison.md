@@ -22,9 +22,21 @@ Same 15 test cases, one run per configuration. v0 = one LLM call, no tools. v5 =
 4. **More expensive isn't uniformly better.** GPT-5 mini (mid-priced) does worse than the cheapest model in both setups and is the slowest (60 s per email with tools). Most of its failures are asking customers unnecessary questions on easy cases, which delays quotes.
 5. **Integration differs per model.** Claude Sonnet 5.5 rejects forced tool calls; v5 needed a fallback. GPT-5 mini and Claude Sonnet 5.5 don't accept a temperature setting, so their runs are less repeatable.
 
-## Next experiment this suggests
+## Routing experiment: cheap model + tools, strong model only for dangerous goods (v6)
 
-Route only the risky judgment to the strong model: the cheap model + tools for everything, plus one short dangerous-goods check by a strong model. If it works, it should keep the cheap model's pass rate while closing the €5,000 gap, at a fraction of the strong model's cost. Not tested yet.
+v6 = v5 on Gemini 2.5 Flash-Lite, plus one short, parallel question to a stronger model: "is this cargo dangerous goods? quote the product words". The quote must appear in the email (verified by code); if either the agent or the grounded check says dangerous goods, the shipment is treated as dangerous goods.
+
+| Setup | All 15 | € at risk | Cost / 1,000 emails | Time / email |
+|---|---|---|---|---|
+| v5 Flash-Lite + tools | 14/15 | €5,500 | $0.51 | 2.9 s |
+| v6 + Claude Sonnet 5.5 checker | **15/15** | **€0** | $2.56 | 2.9 s |
+| **v6 + Claude Haiku 4.5 checker** | **15/15** | **€0** | **$1.20** | 3.7 s |
+| (Claude Sonnet 5.5 + tools, v5) | 12/15 | €700 | $27.94 | 16.9 s |
+
+- Both checkers caught the power banks ("lithium batteries, class 9") and raised **no false alarm** on any other case, in 4 Haiku runs and 1 Sonnet run.
+- **Routing one judgment to a stronger model closed the €5,000 gap for about $0.70 per 1,000 emails**, at roughly 1/23 of the cost of running the strong model end to end, which scored lower.
+- Haiku 4.5 matched Sonnet 5.5 for this narrow question at under half the cost, so it's the default checker.
+- Caveat: one dangerous-goods case in the set. A real test needs many more products (and many safe ones that sound risky), which is the next step for the test set.
 
 ## Caveats
 

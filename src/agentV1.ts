@@ -8,7 +8,7 @@ import { SCHEMA, SYSTEM_PROMPT } from "./agent.js";
 import { incotermScope, type Role } from "./tools/incoterms.js";
 import type { Scope } from "./tools/incoterms.js";
 import type { Agent, AgentOutput } from "./types.js";
-import { MAX_TOKENS, recordUsage } from "./usage.js";
+import { MAX_TOKENS, postWithRetry, recordUsage } from "./usage.js";
 
 export const TOOL = {
   type: "function",
@@ -37,7 +37,7 @@ You have a tool, incoterm_scope. Its result is authoritative:
 - note "named_place_needed": action "ask" for the named place before quoting.`;
 
 export async function chat(body: object) {
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  const res = await postWithRetry("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

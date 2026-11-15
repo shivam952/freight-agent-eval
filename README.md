@@ -26,6 +26,17 @@ Things the harness caught along the way:
 5. **Adding the seaport tool re-broke an easy case** through buyer/seller confusion — fixed by a separate role step whose evidence must be quoted verbatim from the email.
 6. **The one held-out failure is structural**: power banks *are* lithium batteries, the email never says so, the model doesn't notice — and guardrails can't catch what the model never flags. See [`reports/example-regression-v4-to-v3.md`](reports/example-regression-v4-to-v3.md) for what a blocked release looks like.
 
+### Cheap model + tools vs strong models
+
+| Setup | Correct (of 15) | € at risk | Cost / 1,000 emails |
+|---|---|---|---|
+| Gemini 2.5 Flash-Lite, no tools (v0) | 2 | €17,150 | $0.14 |
+| Claude Sonnet 5.5, no tools (v0) | 11 | €2,200 | $14.27 |
+| Claude Sonnet 5.5 + tools (v5) | 12 | **€700** | $27.94 |
+| **Gemini 2.5 Flash-Lite + tools (v5)** | **14** | €5,500 | **$0.51** |
+
+Tools beat model size on pass rate and cost — but **pass rate and business risk rank differently**: the cheap model's single miss is the most expensive one (power banks quoted as normal cargo), which every strong model caught. Full table, GPT-5 mini and Gemini 3.1 Pro, findings and caveats: [`reports/model-comparison.md`](reports/model-comparison.md).
+
 ## How it works
 
 | Part | File | Role |
@@ -69,6 +80,6 @@ npm run report -- baselines/v5.json runs/latest.json --gate  # compare with the 
 
 ## Next
 
-- Compare models: a cheap model with tools vs a strong model without them.
+- Route only the risky judgment (dangerous goods) to a strong model, and measure whether it closes the €5,000 gap at a fraction of the cost.
 - Grow to ~40 cases with generated variations of each trap, and a fresh held-out set.
 - A narrow LLM judge (evaluated against hand labels) for what can't be checked deterministically, such as whether the reply text matches the answer sheet.

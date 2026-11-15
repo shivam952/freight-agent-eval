@@ -1,0 +1,34 @@
+# Model comparison: cheap model + tools vs strong models (2026-11-15)
+
+Same 15 test cases, one run per configuration. v0 = one LLM call, no tools. v5 = grounded role step, Incoterm / seaport / date tools, guardrails. "Model alone" = the model's own answer before guardrails. € at risk uses the illustrative costs in [`src/costs.ts`](../src/costs.ts). Cost and time are measured from OpenRouter usage data.
+
+| Agent | Model | All 15 | Easy | Traps | Model alone | € at risk | Cost / 1,000 emails | Time / email |
+|---|---|---|---|---|---|---|---|---|
+| v0 | google/gemini-2.5-flash-lite | 2/15 | 0/4 | 2/11 | – | €17,150 | $0.14 | 0.9 s |
+| v0 | openai/gpt-5-mini | 3/15 | 1/4 | 2/11 | – | €8,000 | $4.63 | 23.0 s |
+| v0 | google/gemini-3.1-pro-preview | 9/15 | 4/4 | 5/11 | – | €2,600 | $20.86 | 16.6 s |
+| v0 | anthropic/claude-sonnet-5.5 | 11/15 | 4/4 | 7/11 | – | €2,200 | $14.27 | 9.4 s |
+| v5 | openai/gpt-5-mini | 9/15 | 1/4 | 8/11 | 5/15 | €3,000 | $11.11 | 60.6 s |
+| v5 | anthropic/claude-sonnet-5.5 | 12/15 | 4/4 | 8/11 | 11/15 | **€700** | $27.94 | 16.9 s |
+| **v5** | **google/gemini-2.5-flash-lite** | **14/15** | **4/4** | **10/11** | 10/15 | €5,500 | **$0.51** | **2.9 s** |
+
+(v5 on Gemini 3.1 Pro was stopped to save credit.)
+
+## Findings
+
+1. **Tools beat model size on pass rate and cost.** The cheapest model with tools passes 14/15 at $0.51 per 1,000 emails. The best model without tools passes 11/15 at $14.27: 28× the cost for fewer correct answers.
+2. **Pass rate and business risk rank differently.** The cheap model's one failure is the most expensive kind: power banks quoted as normal cargo (hidden dangerous goods, €5,000 of its €5,500). Claude Sonnet 5.5 with the same tools passes fewer cases (12/15) but carries the lowest risk (€700): it catches the power banks, and its misses are minor (an unasked question). **Counting passed cases alone would pick the riskier agent.**
+3. **The strong models catch what tools can't.** Every strong model, with or without tools, flagged the power banks; the cheap model never did. That's world knowledge, not a rule a tool can encode.
+4. **More expensive isn't uniformly better.** GPT-5 mini (mid-priced) does worse than the cheapest model in both setups and is the slowest (60 s per email with tools). Most of its failures are asking customers unnecessary questions on easy cases, which delays quotes.
+5. **Integration differs per model.** Claude Sonnet 5.5 rejects forced tool calls; v5 needed a fallback. GPT-5 mini and Claude Sonnet 5.5 don't accept a temperature setting, so their runs are less repeatable.
+
+## Next experiment this suggests
+
+Route only the risky judgment to the strong model: the cheap model + tools for everything, plus one short dangerous-goods check by a strong model. If it works, it should keep the cheap model's pass rate while closing the €5,000 gap, at a fraction of the strong model's cost. Not tested yet.
+
+## Caveats
+
+- **One run per configuration**, 15 cases: differences of one or two cases are within noise.
+- **The tools and guardrails were built around the cheap model's failures** on the dev cases, which may favour it. The held-out cases were already spent, so this comparison uses all 15.
+- **The test cases were written with a Claude model**, which may slightly favour Claude models.
+- € figures are illustrative assumptions, not measured losses.
